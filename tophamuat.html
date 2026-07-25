@@ -282,7 +282,7 @@ Phân tích và trả lời theo định dạng:
 ⚖️ KẾT LUẬN:
 KẾT QUẢ: [CÓ PHẠM LUẬT / KHÔNG PHẠM LUẬT / CẦN THÊM BẰNG CHỨNG]
 ĐIỀU KHOẢN VI PHẠM: [nếu có]
-H�NH THỨC XỬ LÝ: [theo luật]`;
+HÌNH THỨC XỬ LÝ: [theo luật]`;
 
   const userText=moTa
     ?`Tình huống tố cáo: "${moTa}"\n\nHãy phân tích xem có vi phạm bộ luật không?`
@@ -310,31 +310,49 @@ H�NH THỨC XỬ LÝ: [theo luật]`;
   contentEl.innerHTML='<span class="cursor"></span>';
 
   try{
-    // Wake up Render (controller rieng, khong anh huong request chinh)
-    try{
-      const wakeCtrl=new AbortController();
-      setTimeout(()=>wakeCtrl.abort(),8000);
-      await fetch(`${RENDER_URL}/`,{signal:wakeCtrl.signal});
-    }catch(e){}
+    // Gọi thẳng Gemini API - streaming từ Google
+    const GEMINI_KEY='AIzaSyCX3YoB6WHhnXTtlp742fUjuC_9PHaUM4Q';
+    const url=`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:streamGenerateContent?alt=sse&key=${GEMINI_KEY}`;
 
-    const response=await fetch(`${RENDER_URL}/api/analyze`,{
+    const response=await fetch(url,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({parts})
+      body:JSON.stringify({
+        contents:[{role:'user',parts}],
+        generationConfig:{maxOutputTokens:1500,temperature:0.3}
+      })
     });
 
-    if(!response.ok) throw new Error(`Server lỗi: ${response.status}`);
+    if(!response.ok){
+      const err=await response.json();
+      throw new Error(err.error?.message||`Lỗi ${response.status}`);
+    }
 
     const reader=response.body.getReader();
     const decoder=new TextDecoder();
     let fullText='';
+    let buf='';
 
     while(true){
       const {done,value}=await reader.read();
       if(done) break;
-      const chunk=decoder.decode(value,{stream:true});
-      fullText+=chunk;
-      contentEl.innerHTML=fullText+'<span class="cursor"></span>';
+      buf+=decoder.decode(value,{stream:true});
+      // Parse SSE lines
+      const lines=buf.split('\n');
+      buf=lines.pop();
+      for(const line of lines){
+        if(!line.startsWith('data: ')) continue;
+        const raw=line.slice(6).trim();
+        if(!raw||raw==='[DONE]') continue;
+        try{
+          const json=JSON.parse(raw);
+          const chunk=json.candidates?.[0]?.content?.parts?.[0]?.text||'';
+          if(chunk){
+            fullText+=chunk;
+            contentEl.innerHTML=fullText+'<span class="cursor"></span>';
+          }
+        }catch(e){}
+      }
     }
 
     contentEl.textContent=fullText;
@@ -363,6 +381,7 @@ H�NH THỨC XỬ LÝ: [theo luật]`;
   document.getElementById('analyzeBtn').disabled=false;
   document.getElementById('resultBox').scrollIntoView({behavior:'smooth',block:'start'});
 }
+
 
 function resetForm(){
   selectedLuat=null;uploadedFiles=[];
