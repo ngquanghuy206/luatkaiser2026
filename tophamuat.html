@@ -282,7 +282,7 @@ Phân tích và trả lời theo định dạng:
 ⚖️ KẾT LUẬN:
 KẾT QUẢ: [CÓ PHẠM LUẬT / KHÔNG PHẠM LUẬT / CẦN THÊM BẰNG CHỨNG]
 ĐIỀU KHOẢN VI PHẠM: [nếu có]
-H�NH THỨC XỬ LÝ: [theo luật]`;
+H�NH THỨC XỬ LÝ: [theo luật]`;
 
   const userText=moTa
     ?`Tình huống tố cáo: "${moTa}"\n\nHãy phân tích xem có vi phạm bộ luật không?`
@@ -310,19 +310,18 @@ H�NH THỨC XỬ LÝ: [theo luật]`;
   contentEl.innerHTML='<span class="cursor"></span>';
 
   try{
-    // Wake up Render neu dang ngu
-    try{ await fetch(`${RENDER_URL}/`,{signal:AbortSignal.timeout(8000)}); }catch(e){}
-
-    const controller=new AbortController();
-    const timeout=setTimeout(()=>controller.abort(),120000);
+    // Wake up Render (controller rieng, khong anh huong request chinh)
+    try{
+      const wakeCtrl=new AbortController();
+      setTimeout(()=>wakeCtrl.abort(),8000);
+      await fetch(`${RENDER_URL}/`,{signal:wakeCtrl.signal});
+    }catch(e){}
 
     const response=await fetch(`${RENDER_URL}/api/analyze`,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({parts}),
-      signal:controller.signal
+      body:JSON.stringify({parts})
     });
-    clearTimeout(timeout);
 
     if(!response.ok) throw new Error(`Server lỗi: ${response.status}`);
 
