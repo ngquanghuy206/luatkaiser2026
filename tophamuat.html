@@ -25,13 +25,15 @@
     --g-purple: linear-gradient(135deg,#a855f7,#d8b4fe);
     --g-red: linear-gradient(135deg,#ff4d4d,#ff9090);
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   body {
     background: var(--bg);
     color: var(--text);
     font-family: 'Segoe UI', system-ui, sans-serif;
     min-height: 100vh;
     overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
   }
 
   /* BG orbs */
@@ -62,6 +64,22 @@
   header h1 span { background: var(--g-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .header-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
 
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(7,9,13,.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #1e2d3d;
+    padding: 10px 16px;
+    display: flex; gap: 12px; align-items: center;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  nav a {
+    color: #6b7a8d; font-size: 13px;
+    text-decoration: none; white-space: nowrap;
+  }
+
   /* MAIN */
   main {
     position: relative; z-index: 1;
@@ -91,6 +109,7 @@
     text-align: center;
     transition: all .2s;
     position: relative; overflow: hidden;
+    -webkit-user-select: none; user-select: none;
   }
   .luat-btn::before {
     content:''; position:absolute; inset:0;
@@ -111,7 +130,7 @@
   .cyan .luat-name { background:var(--g-cyan); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
   .green .luat-name { background:var(--g-green); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
 
-  /* MÔ TẢ + UPLOAD */
+  /* CARD */
   .card {
     background: var(--card);
     border: 1px solid var(--border);
@@ -128,6 +147,7 @@
     resize: none; min-height: 90px;
     outline: none; transition: border-color .2s;
     line-height: 1.5;
+    -webkit-appearance: none;
   }
   textarea:focus { border-color: rgba(0,212,255,.4); }
   textarea::placeholder { color: var(--muted); }
@@ -147,7 +167,12 @@
     border-color: rgba(0,212,255,.5);
     background: rgba(0,212,255,.04);
   }
-  .upload-zone input { position:absolute; inset:0; opacity:0; cursor:pointer; }
+  .upload-zone input {
+    position: absolute; inset: 0;
+    opacity: 0; cursor: pointer;
+    width: 100%; height: 100%;
+    font-size: 16px; /* prevent iOS zoom on file input */
+  }
   .upload-icon { font-size: 28px; margin-bottom: 8px; display: block; }
   .upload-text { font-size: 13px; color: var(--muted); }
   .upload-hint { font-size: 11px; color: rgba(107,122,141,.6); margin-top: 4px; }
@@ -174,7 +199,7 @@
     cursor: pointer; display: flex;
     align-items: center; justify-content: center;
   }
-  .video-thumb { 
+  .video-thumb {
     background: rgba(0,212,255,.1);
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
@@ -196,6 +221,8 @@
     transition: all .2s;
     display: flex; align-items: center; justify-content: center; gap: 8px;
     box-shadow: 0 4px 20px rgba(0,212,255,.25);
+    -webkit-appearance: none;
+    touch-action: manipulation;
   }
   .btn-analyze:hover { transform: translateY(-1px); box-shadow: 0 6px 28px rgba(0,212,255,.35); }
   .btn-analyze:disabled { opacity:.5; cursor:not-allowed; transform:none; }
@@ -210,7 +237,7 @@
   }
   .result-box.show { display: block; }
   @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
-  
+
   .result-verdict {
     display: flex; align-items: center; gap: 12px;
     margin-bottom: 16px;
@@ -227,9 +254,10 @@
   .result-box.ok .verdict-text { color: #3dcc6e; }
   .result-box.unclear { background: rgba(245,200,66,.05); border-color: rgba(245,200,66,.25); }
   .result-box.unclear .verdict-text { color: #f5c842; }
+  .result-box.error { background: rgba(255,77,77,.05); border-color: rgba(255,77,77,.25); }
+  .result-box.error .verdict-text { color: #ff6060; }
 
-  .result-content { font-size: 14px; line-height: 1.7; color: #c8d0dc; white-space: pre-wrap; }
-  .result-content strong { color: var(--text); }
+  .result-content { font-size: 14px; line-height: 1.7; color: #c8d0dc; white-space: pre-wrap; word-break: break-word; }
 
   /* LOADING */
   .loading-wrap {
@@ -262,6 +290,7 @@
     border-radius: 10px; color: var(--muted);
     font-size: 13px; cursor: pointer;
     transition: all .2s;
+    touch-action: manipulation;
   }
   .btn-reset:hover { border-color: rgba(0,212,255,.3); color: var(--cyan); }
 
@@ -281,6 +310,7 @@
     padding: 9px 12px;
     cursor: pointer;
     user-select: none;
+    touch-action: manipulation;
   }
   .context-panel-header:hover { background: rgba(255,255,255,.03); }
   .context-panel-icon { font-size: 14px; flex-shrink:0; }
@@ -289,35 +319,26 @@
   .context-panel.open .context-panel-arrow { transform: rotate(180deg); }
   .context-panel-body {
     display: none;
-    padding: 0 12px 12px;
+    padding: 10px 12px 12px;
     font-size: 12px; line-height: 1.65; color: #8a96a8;
-    white-space: pre-wrap;
+    white-space: pre-wrap; word-break: break-word;
     border-top: 1px solid var(--border);
-    padding-top: 10px;
   }
   .context-panel.open .context-panel-body { display: block; }
   .context-panel.luat-panel .context-panel-title { color: #f5c842; }
   .context-panel.cauhoi-panel .context-panel-title { color: #00d4ff; }
-  .context-divider {
-    height: 1px; background: var(--border); margin: 14px 0;
-  }
+  .context-divider { height: 1px; background: var(--border); margin: 14px 0; }
 
-  /* DIVIDER */
-  .divider { height: 1px; background: var(--border); }
-
-  /* TAGS */
-  .active-check { 
-    position: relative;
-  }
-  .active-check::after {
-    content:'✓';
-    position: absolute; top: -6px; right: -6px;
-    width: 18px; height: 18px;
-    background: var(--g-green);
-    border-radius: 50%;
-    font-size: 10px; font-weight: 900;
-    color: #05070b;
-    display: flex; align-items: center; justify-content: center;
+  /* ERROR BOX */
+  .error-detail {
+    background: rgba(255,77,77,.08);
+    border: 1px solid rgba(255,77,77,.2);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 12px;
+    color: #ff9090;
+    margin-top: 10px;
+    word-break: break-all;
   }
 
   @media (max-width: 400px) {
@@ -332,7 +353,13 @@
 <div class="orb orb1"></div>
 <div class="orb orb2"></div>
 
-<nav style="position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(7,9,13,.95);backdrop-filter:blur(12px);border-bottom:1px solid #1e2d3d;padding:10px 16px;display:flex;gap:12px;align-items:center;overflow-x:auto"><a href="index.html" style="color:#6b7a8d;font-size:13px;text-decoration:none;white-space:nowrap">← Trang Chủ</a><a href="solo.html" style="color:#f5c842;font-size:13px;text-decoration:none;white-space:nowrap">⭐ Kaiser 1-1</a><a href="kaiser.html" style="color:#00d4ff;font-size:13px;text-decoration:none;white-space:nowrap">🛡️ Kaiser Team</a><a href="checktam.html" style="color:#3dcc6e;font-size:13px;text-decoration:none;white-space:nowrap">🎯 Check Tâm</a></nav>
+<nav>
+  <a href="index.html">← Trang Chủ</a>
+  <a href="solo.html" style="color:#f5c842">⭐ Kaiser 1-1</a>
+  <a href="kaiser.html" style="color:#00d4ff">🛡️ Kaiser Team</a>
+  <a href="checktam.html" style="color:#3dcc6e">🎯 Check Tâm</a>
+</nav>
+
 <header style="margin-top:44px">
   <div class="logo-icon">⚖️</div>
   <div>
@@ -343,7 +370,7 @@
 
 <main>
 
-  <!-- BƯỚC 1: CHỌN BỘ LUẬT -->
+  <!-- BƯỚC 1 -->
   <div>
     <div class="step-label">Bước 1 · Chọn bộ luật</div>
     <div class="luat-grid">
@@ -365,13 +392,13 @@
     </div>
   </div>
 
-  <!-- BƯỚC 2: MÔ TẢ TÌNH HUỐNG -->
+  <!-- BƯỚC 2 -->
   <div class="card">
     <div class="step-label" style="margin-bottom:12px">Bước 2 · Mô tả tình huống (tùy chọn)</div>
-    <textarea id="moTa" placeholder="Ví dụ: đối thủ dùng súng lục ở ván 2, leo lên mái nhà bắn..."></textarea>
+    <textarea id="moTa" placeholder="Ví dụ: đối thủ dùng súng lục ở ván 2, leo lên mái nhà bắn..." rows="4"></textarea>
   </div>
 
-  <!-- BƯỚC 3: UPLOAD BẰNG CHỨNG -->
+  <!-- BƯỚC 3 -->
   <div class="card">
     <div class="step-label" style="margin-bottom:12px">Bước 3 · Upload bằng chứng (ảnh / video)</div>
     <div class="upload-zone" id="uploadZone">
@@ -385,7 +412,7 @@
 
   <!-- NÚT GỬI -->
   <button class="btn-analyze" id="analyzeBtn" onclick="analyzeViolation()" disabled>
-    <span>🔍</span> Phân Tích Tố Phạm Luật
+    🔍 Phân Tích Tố Phạm Luật
   </button>
 
   <!-- LOADING -->
@@ -432,10 +459,8 @@
 let selectedLuat = null;
 let uploadedFiles = [];
 
-// RULES DATABASE
 const RULES = {
-  solo: `
-BỘ LUẬT KAISER 1-1 (Solo):
+  solo: `BỘ LUẬT KAISER 1-1 (Solo):
 - Vũ khí Round 1: Chỉ được dùng Desert Eagle (DE) hoặc USP.
 - Từ Round 2 trở đi: Thỏa thuận trước — Full Tiểu Liên (MP40/UMP) hoặc Full Shotgun (M1014/M1887). Không có thỏa thuận thì súng tự do.
 - Cap USP Round 1: Nếu có giao kèo check tâm → cap đến hết Round 7; Không check tâm → cap đến hết Round 6.
@@ -443,37 +468,34 @@ BỘ LUẬT KAISER 1-1 (Solo):
 - Cấm đi bộ từ 4 bước trở lên.
 - Cấm ke (núp góc) quá 3 giây. Chạy tại chỗ để ke góc quá 4 giây vẫn tính vi phạm.
 - Nhân vật: phải dùng Full Alok (kỹ năng Alok).
-- Keo tròn: Cấm đục keo từ ngoài (nếu keo nứt/vỡ → thua ngay). Cấm nhảy vào keo tròn. Người trong keo được bắn ra bình thường sau khi nhốt đối thủ. Cấm đặt keo tròn khi vòng bo trên minimap đã thu hết.
+- Keo tròn: Cấm đục keo từ ngoài. Cấm nhảy vào keo tròn. Cấm đặt keo tròn khi vòng bo trên minimap đã thu hết.
 - Lưu clip màn hình (1 máy/1 FF, trừ AFK). Quay đủ kill. Không chấp nhận clip 99%.
 - Nghiêm cấm hack, vật phẩm bổ trợ, gài luật vô lý.
-- Cấm ra thư (tự động thua nếu không giao kèo trước).
-`,
-  team: `
-BỘ LUẬT KAISER TEAM (2v2/3v3/4v4):
+- Cấm ra thư (tự động thua nếu không giao kèo trước).`,
+
+  team: `BỘ LUẬT KAISER TEAM (2v2/3v3/4v4):
 - Ván 1: Mặc định chỉ dùng DE (Desert Eagle).
 - Từ ván 2 trở đi: Cấm toàn bộ súng lục.
 - Súng chính được dùng: USP 2, DE, MP40, UMP, M1014, M1887. Không nâng chip.
 - Cap USP Round 1: Có giao kèo check tâm → cap đến hết Round 7; Không check tâm → cap đến hết Round 6.
-- Nhân vật chỉ được chọn: Kelly, Caroline, Alok, Hayato. Vi phạm chưa giao tranh → out ngay ván 1 → thành phần bắn lại.
-- Pet chỉ dùng: Đại Bàng, Robo, Rockie (thêm pet khác khi không sở hữu các pet này).
-- Vị trí: Cấm lên lầu, nóc nhà, đỉnh đồi, vị trí quá cao. Được lên thùng công 1 (cấm thùng 2,3 phía trên). Nhà máy điện: được lên mái hiên, lên xe (dính bánh xe nhảy xuống ngay không bắn thì không sao). Tụ điểm hẹn: nóc nhà nhỏ đứng trên không bắn thì không sao.
-- Sự cố kỹ thuật: Văng Round 1 → bắn lại toàn bộ. Văng từ Round 2 → bắn bình thường. Lag 999+: đang hòa hoặc dẫn tỉ số thì được bắn lại (phải quay màn hình có chữ "Đang kết nối...").
-- Cấm tự bug keo hoặc bug cho đồng đội vào góc lag mà bên kia không bắn tới.
-- Tất cả thành viên lưu clip (1 máy/1 FF, trừ AFK). Quay đủ kill. Không xử clip 99%.
+- Nhân vật chỉ được chọn: Kelly, Caroline, Alok, Hayato.
+- Pet chỉ dùng: Đại Bàng, Robo, Rockie.
+- Vị trí: Cấm lên lầu, nóc nhà, đỉnh đồi, vị trí quá cao. Được lên thùng công 1.
+- Sự cố kỹ thuật: Văng Round 1 → bắn lại toàn bộ. Văng từ Round 2 → bắn bình thường.
+- Cấm tự bug keo hoặc bug cho đồng đội vào góc lag.
+- Tất cả thành viên lưu clip. Không xử clip 99%.
 - Nghiêm cấm hack, vật phẩm bổ trợ, gài luật vô lý.
-- Cấm ra thư (tự động thua nếu không giao kèo trước).
-`,
-  checktam: `
-QUY ĐỊNH CHECK TÂM:
+- Cấm ra thư.`,
+
+  checktam: `QUY ĐỊNH CHECK TÂM:
 - Dụng cụ check: Bật điều khiển "Tất cả", check bằng UMP hoặc MP5.
 - Tư thế: Đứng check, quay rõ màn hình. Quay trúng IC → trừ phí.
 - Thời điểm quay: Bắt đầu từ khi tâm hiển thị vòng đỏ hoặc sau 10 giây cho đến khi check xong.
 - Vị trí: Phải ra giữa map mới bắt đầu bấm quay. Quay trước khi ra giữa → trừ phí.
-- Phải check đủ tất cả vị trí: Cổ, Ngực, Vai, Bụng, Đỉnh đầu (không quá cao), Xung quanh cơ thể, Khe chân qua gối. Thiếu vị trí → trừ phí bên check.
+- Phải check đủ tất cả vị trí: Cổ, Ngực, Vai, Bụng, Đỉnh đầu, Xung quanh cơ thể, Khe chân qua gối. Thiếu vị trí → trừ phí bên check.
 - Sai được check lại 1 lần ngay sau đó.
 - Video quay liền mạch — ngắt tối đa 2 video, cách nhau không quá 10 giây.
-- Miễn check: bên thua AFK, giả AFK, cố tình phá không cho check, hoặc cố thủ trong nhà không ra khu vực giữa map.
-`
+- Miễn check: bên thua AFK, giả AFK, cố tình phá không cho check, hoặc cố thủ trong nhà không ra khu vực giữa map.`
 };
 
 const LUAT_NAMES = {
@@ -497,7 +519,6 @@ function checkReady() {
 
 document.getElementById('moTa').addEventListener('input', checkReady);
 
-// DRAG AND DROP
 const zone = document.getElementById('uploadZone');
 zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
 zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
@@ -551,23 +572,38 @@ async function fileToBase64(file) {
   });
 }
 
+function showError(msg, detail) {
+  const box = document.getElementById('resultBox');
+  box.className = 'result-box show error';
+  document.getElementById('verdictIcon').textContent = '❌';
+  document.getElementById('verdictLabel').textContent = 'LỖI';
+  document.getElementById('verdictText').textContent = 'Không thể kết nối AI';
+  document.getElementById('resultContent').textContent = msg;
+  if (detail) {
+    const errDiv = document.createElement('div');
+    errDiv.className = 'error-detail';
+    errDiv.textContent = 'Chi tiết: ' + detail;
+    document.getElementById('resultContent').after(errDiv);
+  }
+}
+
 async function analyzeViolation() {
   if (!selectedLuat) return alert('Vui lòng chọn bộ luật!');
 
   const moTa = document.getElementById('moTa').value.trim();
   if (!moTa && uploadedFiles.length === 0) return alert('Vui lòng mô tả tình huống hoặc upload bằng chứng!');
 
-  // Show loading
   document.getElementById('analyzeBtn').disabled = true;
   document.getElementById('loadingWrap').classList.add('show');
-  document.getElementById('resultBox').classList.remove('show', 'violation', 'ok', 'unclear');
+  const resultBox = document.getElementById('resultBox');
+  resultBox.className = 'result-box';
+
+  // Clear old error divs
+  const oldErr = resultBox.querySelector('.error-detail');
+  if (oldErr) oldErr.remove();
 
   try {
-    // Build content array
-    const contentArr = [];
-
-    // System prompt as first user message prefix
-    const systemText = `Bạn là trọng tài chuyên xét xử vi phạm luật Kaiser Free Fire. Nhiệm vụ của bạn:
+    const systemPrompt = `Bạn là trọng tài chuyên xét xử vi phạm luật Kaiser Free Fire. Nhiệm vụ của bạn:
 1. Đọc bộ luật được cung cấp
 2. Phân tích tình huống và/hoặc bằng chứng ảnh/video
 3. Suy luận chi tiết từng điểm
@@ -586,90 +622,66 @@ Trả lời theo định dạng:
 ⚖️ KẾT LUẬN:
 KẾT QUẢ: [CÓ PHẠM LUẬT / KHÔNG PHẠM LUẬT / CẦN THÊM BẰNG CHỨNG]
 ĐIỀU KHOẢN VI PHẠM: [nếu có]
-HÌNH THỨC XỬ LÝ: [theo luật]`;
+H�NH THỨC XỬ LÝ: [theo luật]`;
 
-    // Add text
     const userText = moTa
       ? `Tình huống tố cáo: "${moTa}"\n\nHãy phân tích xem có vi phạm bộ luật không?`
-      : 'Hãy xem bằng chứng ảnh/video và phân tích xem có vi phạm bộ luật không?';
+      : 'Hãy xem bằng chứng ảnh và phân tích xem có vi phạm bộ luật không?';
 
-    // Images only (API doesn't support video directly)
+    // Prepare images
     const imageFiles = uploadedFiles.filter(f => f.type.startsWith('image/'));
-    
-    const msgContent = [];
-    
-    // Build Grok content (gửi qua proxy /api/grok để tránh CORS)
-    const grokContent = [];
-
+    const images = [];
     for (const imgFile of imageFiles.slice(0, 4)) {
       const b64 = await fileToBase64(imgFile);
-      grokContent.push({
-        type: 'image_url',
-        image_url: { url: `data:${imgFile.type};base64,${b64}` }
-      });
+      images.push({ data: b64, mediaType: imgFile.type });
     }
 
-    grokContent.push({ type: 'text', text: `${systemText}\n\n${userText}` });
-
-    const response = await fetch('/api/grok', {
+    const response = await fetch('/api/analyze', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: imageFiles.length > 0 ? 'grok-2-vision-1212' : 'grok-3',
-        messages: [{ role: 'user', content: grokContent }]
-      })
+      body: JSON.stringify({ systemPrompt, userText, images })
     });
 
     const data = await response.json();
-    const text = data.choices?.[0]?.message?.content || '';
 
-    if (!text) {
-      const rawErr = JSON.stringify(data);
-      throw new Error('Không có phản hồi. Raw: ' + rawErr.substring(0,200));
+    if (data.error) {
+      throw new Error(data.error);
     }
 
-    // Determine verdict class
-    let cls = 'unclear', icon = '🟡', label = 'Cần xem thêm bằng chứng', title = 'Chưa Kết Luận';
+    const text = data.text || '';
+    if (!text) throw new Error('Không nhận được phản hồi từ AI');
+
+    // Determine verdict
+    let cls = 'unclear', icon = '🟡', label = 'Phán quyết của trọng tài', title = '⚠️ Cần Thêm Bằng Chứng';
     const upper = text.toUpperCase();
     if (upper.includes('CÓ PHẠM LUẬT') || upper.includes('VI PHẠM')) {
-      cls = 'violation'; icon = '🔴'; label = 'Phán quyết của trọng tài'; title = '⛔ CÓ PHẠM LUẬT';
+      cls = 'violation'; icon = '🔴'; title = '⛔ CÓ PHẠM LUẬT';
     } else if (upper.includes('KHÔNG PHẠM LUẬT') || upper.includes('KHÔNG VI PHẠM')) {
-      cls = 'ok'; icon = '🟢'; label = 'Phán quyết của trọng tài'; title = '✅ KHÔNG PHẠM LUẬT';
-    } else if (upper.includes('CẦN THÊM') || upper.includes('CẦN XEM')) {
-      cls = 'unclear'; icon = '🟡'; label = 'Phán quyết của trọng tài'; title = '⚠️ Cần Thêm Bằng Chứng';
+      cls = 'ok'; icon = '🟢'; title = '✅ KHÔNG PHẠM LUẬT';
     }
 
-    // Populate context panels
+    // Fill context panels
     document.getElementById('luatPanelBody').textContent = RULES[selectedLuat].trim();
     const videoCount = uploadedFiles.filter(f => f.type.startsWith('video/')).length;
-    const imgCount = imageFiles.length;
     let cauhoiText = `Bộ luật: ${LUAT_NAMES[selectedLuat]}\n`;
     if (moTa) cauhoiText += `\nMô tả tình huống:\n"${moTa}"`;
-    if (imgCount > 0) cauhoiText += `\n\nĐã gửi ${imgCount} ảnh bằng chứng`;
-    if (videoCount > 0) cauhoiText += `\n\nĐã gửi ${videoCount} video bằng chứng (AI phân tích theo mô tả)`;
+    if (imageFiles.length > 0) cauhoiText += `\n\nĐã gửi ${imageFiles.length} ảnh bằng chứng`;
+    if (videoCount > 0) cauhoiText += `\n\nĐã gửi ${videoCount} video bằng chứng`;
     document.getElementById('cauhoiPanelBody').textContent = cauhoiText;
 
-    document.getElementById('resultBox').className = `result-box show ${cls}`;
+    resultBox.className = `result-box show ${cls}`;
     document.getElementById('verdictIcon').textContent = icon;
     document.getElementById('verdictLabel').textContent = label;
     document.getElementById('verdictText').textContent = title;
     document.getElementById('resultContent').textContent = text;
 
   } catch (err) {
-    let errMsg = err.message || 'Unknown error';
-    try {
-      // Try to get more details from response
-    } catch(e2) {}
-    document.getElementById('resultBox').className = 'result-box show unclear';
-    document.getElementById('verdictIcon').textContent = '❌';
-    document.getElementById('verdictLabel').textContent = 'Lỗi kết nối';
-    document.getElementById('verdictText').textContent = 'Không thể kết nối AI';
-    document.getElementById('resultContent').textContent = 'Chi tiết lỗi: ' + errMsg + '\n\nVui lòng F5 trang và thử lại.';
+    showError('Vui lòng thử lại.', err.message);
   }
 
   document.getElementById('loadingWrap').classList.remove('show');
   document.getElementById('analyzeBtn').disabled = false;
-  document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function resetForm() {
@@ -679,7 +691,10 @@ function resetForm() {
   document.getElementById('moTa').value = '';
   document.getElementById('mediaPreview').innerHTML = '';
   document.getElementById('fileInput').value = '';
-  document.getElementById('resultBox').classList.remove('show');
+  const box = document.getElementById('resultBox');
+  box.className = 'result-box';
+  const oldErr = box.querySelector('.error-detail');
+  if (oldErr) oldErr.remove();
   document.getElementById('analyzeBtn').disabled = true;
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }

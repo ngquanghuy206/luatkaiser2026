@@ -3,6 +3,9 @@
   "functions": {
     "api/grok.js": {
       "runtime": "edge"
+    },
+    "api/analyze.js": {
+      "runtime": "edge"
     }
   }
 }
