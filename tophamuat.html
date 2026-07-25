@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tố Phạm Luật – Kaiser FF</title>
+<style>
+  :root {
+    --bg: #07090d;
+    --surface: #0d1117;
+    --card: #111820;
+    --border: #1e2d3d;
+    --gold: #f5c842;
+    --gold2: #c8902a;
+    --cyan: #00d4ff;
+    --cyan2: #7ffbff;
+    --green: #3dcc6e;
+    --purple: #a855f7;
+    --red: #ff4d4d;
+    --text: #e8eaf0;
+    --muted: #6b7a8d;
+    --g-gold: linear-gradient(135deg,#f5c842,#c8902a);
+    --g-cyan: linear-gradient(135deg,#00d4ff,#7ffbff);
+    --g-green: linear-gradient(135deg,#3dcc6e,#a0f0b0);
+    --g-purple: linear-gradient(135deg,#a855f7,#d8b4fe);
+    --g-red: linear-gradient(135deg,#ff4d4d,#ff9090);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* BG orbs */
+  .orb {
+    position: fixed; border-radius: 50%; filter: blur(80px);
+    pointer-events: none; z-index: 0;
+  }
+  .orb1 { width:400px; height:400px; background:rgba(0,212,255,.06); top:-100px; left:-100px; }
+  .orb2 { width:300px; height:300px; background:rgba(245,200,66,.05); bottom:0; right:-80px; }
+
+  /* HEADER */
+  header {
+    position: relative; z-index: 10;
+    background: rgba(13,17,23,.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 20px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .logo-icon {
+    width: 32px; height: 32px;
+    background: var(--g-gold);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  header h1 { font-size: 16px; font-weight: 700; letter-spacing: .5px; }
+  header h1 span { background: var(--g-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .header-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
+
+  /* MAIN */
+  main {
+    position: relative; z-index: 1;
+    max-width: 680px; margin: 0 auto;
+    padding: 24px 16px 80px;
+    display: flex; flex-direction: column; gap: 20px;
+  }
+
+  /* STEP LABEL */
+  .step-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 2px;
+    color: var(--muted); text-transform: uppercase; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .step-label::after { content:''; flex:1; height:1px; background:var(--border); }
+
+  /* LUẬT CHỌN */
+  .luat-grid {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 10px;
+  }
+  .luat-btn {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 10px;
+    cursor: pointer;
+    text-align: center;
+    transition: all .2s;
+    position: relative; overflow: hidden;
+  }
+  .luat-btn::before {
+    content:''; position:absolute; inset:0;
+    opacity:0; transition: opacity .2s;
+  }
+  .luat-btn.gold::before { background: linear-gradient(135deg,rgba(245,200,66,.12),rgba(200,144,42,.06)); }
+  .luat-btn.cyan::before { background: linear-gradient(135deg,rgba(0,212,255,.12),rgba(127,251,255,.06)); }
+  .luat-btn.green::before { background: linear-gradient(135deg,rgba(61,204,110,.12),rgba(160,240,176,.06)); }
+  .luat-btn.active::before, .luat-btn:hover::before { opacity:1; }
+  .luat-btn.active { border-color: transparent; }
+  .luat-btn.gold.active { border-color: rgba(245,200,66,.4); box-shadow: 0 0 20px rgba(245,200,66,.15); }
+  .luat-btn.cyan.active { border-color: rgba(0,212,255,.4); box-shadow: 0 0 20px rgba(0,212,255,.15); }
+  .luat-btn.green.active { border-color: rgba(61,204,110,.4); box-shadow: 0 0 20px rgba(61,204,110,.15); }
+  .luat-icon { font-size: 22px; margin-bottom: 6px; display: block; }
+  .luat-name { font-size: 13px; font-weight: 700; }
+  .luat-sub { font-size: 10px; color: var(--muted); margin-top: 3px; }
+  .gold .luat-name { background:var(--g-gold); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+  .cyan .luat-name { background:var(--g-cyan); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+  .green .luat-name { background:var(--g-green); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+
+  /* MÔ TẢ + UPLOAD */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+  }
+
+  textarea {
+    width: 100%; background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text); font-family: inherit;
+    font-size: 14px; padding: 12px;
+    resize: none; min-height: 90px;
+    outline: none; transition: border-color .2s;
+    line-height: 1.5;
+  }
+  textarea:focus { border-color: rgba(0,212,255,.4); }
+  textarea::placeholder { color: var(--muted); }
+
+  /* UPLOAD */
+  .upload-zone {
+    border: 1.5px dashed var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all .2s;
+    background: var(--surface);
+    position: relative;
+  }
+  .upload-zone:hover, .upload-zone.dragover {
+    border-color: rgba(0,212,255,.5);
+    background: rgba(0,212,255,.04);
+  }
+  .upload-zone input { position:absolute; inset:0; opacity:0; cursor:pointer; }
+  .upload-icon { font-size: 28px; margin-bottom: 8px; display: block; }
+  .upload-text { font-size: 13px; color: var(--muted); }
+  .upload-hint { font-size: 11px; color: rgba(107,122,141,.6); margin-top: 4px; }
+
+  /* PREVIEW */
+  .media-preview {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;
+  }
+  .preview-item {
+    position: relative; border-radius: 8px; overflow: hidden;
+    border: 1px solid var(--border);
+    width: 80px; height: 80px;
+    flex-shrink: 0;
+  }
+  .preview-item img, .preview-item video {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .preview-item .remove-btn {
+    position: absolute; top: 3px; right: 3px;
+    width: 20px; height: 20px;
+    background: rgba(255,77,77,.85);
+    border-radius: 50%; border: none;
+    color: #fff; font-size: 12px;
+    cursor: pointer; display: flex;
+    align-items: center; justify-content: center;
+  }
+  .video-thumb { 
+    background: rgba(0,212,255,.1);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 4px; height: 100%;
+  }
+  .video-thumb span:first-child { font-size: 20px; }
+  .video-thumb span:last-child { font-size: 9px; color: var(--cyan); font-weight: 600; }
+
+  /* SUBMIT */
+  .btn-analyze {
+    width: 100%;
+    padding: 15px;
+    border: none; border-radius: 12px;
+    background: var(--g-cyan);
+    color: #05070b;
+    font-weight: 800; font-size: 15px;
+    letter-spacing: .5px;
+    cursor: pointer;
+    transition: all .2s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    box-shadow: 0 4px 20px rgba(0,212,255,.25);
+  }
+  .btn-analyze:hover { transform: translateY(-1px); box-shadow: 0 6px 28px rgba(0,212,255,.35); }
+  .btn-analyze:disabled { opacity:.5; cursor:not-allowed; transform:none; }
+
+  /* RESULT */
+  .result-box {
+    border-radius: 14px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    display: none;
+    animation: fadeIn .4s ease;
+  }
+  .result-box.show { display: block; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
+  
+  .result-verdict {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .verdict-icon { font-size: 32px; flex-shrink: 0; }
+  .verdict-label { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--muted); }
+  .verdict-text { font-size: 20px; font-weight: 800; margin-top: 2px; }
+
+  .result-box.violation { background: rgba(255,77,77,.05); border-color: rgba(255,77,77,.25); }
+  .result-box.violation .verdict-text { color: #ff6060; }
+  .result-box.ok { background: rgba(61,204,110,.05); border-color: rgba(61,204,110,.25); }
+  .result-box.ok .verdict-text { color: #3dcc6e; }
+  .result-box.unclear { background: rgba(245,200,66,.05); border-color: rgba(245,200,66,.25); }
+  .result-box.unclear .verdict-text { color: #f5c842; }
+
+  .result-content { font-size: 14px; line-height: 1.7; color: #c8d0dc; white-space: pre-wrap; }
+  .result-content strong { color: var(--text); }
+
+  /* LOADING */
+  .loading-wrap {
+    display: none; text-align: center; padding: 28px;
+  }
+  .loading-wrap.show { display: block; }
+  .spinner {
+    width: 40px; height: 40px;
+    border: 3px solid var(--border);
+    border-top-color: var(--cyan);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 14px;
+  }
+  @keyframes spin { to{ transform: rotate(360deg); } }
+  .loading-text { font-size: 13px; color: var(--muted); }
+  .loading-dots::after {
+    content: '...';
+    animation: dots 1.5s steps(4,end) infinite;
+  }
+  @keyframes dots {
+    0%,20%{content:'.'} 40%{content:'..'} 60%,100%{content:'...'}
+  }
+
+  /* RESET */
+  .btn-reset {
+    margin-top: 14px; width: 100%;
+    padding: 11px;
+    background: transparent; border: 1px solid var(--border);
+    border-radius: 10px; color: var(--muted);
+    font-size: 13px; cursor: pointer;
+    transition: all .2s;
+  }
+  .btn-reset:hover { border-color: rgba(0,212,255,.3); color: var(--cyan); }
+
+  /* CONTEXT PANELS */
+  .context-wrap {
+    margin-bottom: 16px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .context-panel {
+    background: rgba(0,0,0,.25);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .context-panel-header {
+    display: flex; align-items: center; gap: 8px;
+    padding: 9px 12px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .context-panel-header:hover { background: rgba(255,255,255,.03); }
+  .context-panel-icon { font-size: 14px; flex-shrink:0; }
+  .context-panel-title { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; flex:1; }
+  .context-panel-arrow { font-size: 10px; color: var(--muted); transition: transform .2s; }
+  .context-panel.open .context-panel-arrow { transform: rotate(180deg); }
+  .context-panel-body {
+    display: none;
+    padding: 0 12px 12px;
+    font-size: 12px; line-height: 1.65; color: #8a96a8;
+    white-space: pre-wrap;
+    border-top: 1px solid var(--border);
+    padding-top: 10px;
+  }
+  .context-panel.open .context-panel-body { display: block; }
+  .context-panel.luat-panel .context-panel-title { color: #f5c842; }
+  .context-panel.cauhoi-panel .context-panel-title { color: #00d4ff; }
+  .context-divider {
+    height: 1px; background: var(--border); margin: 14px 0;
+  }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: var(--border); }
+
+  /* TAGS */
+  .active-check { 
+    position: relative;
+  }
+  .active-check::after {
+    content:'✓';
+    position: absolute; top: -6px; right: -6px;
+    width: 18px; height: 18px;
+    background: var(--g-green);
+    border-radius: 50%;
+    font-size: 10px; font-weight: 900;
+    color: #05070b;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  @media (max-width: 400px) {
+    .luat-grid { grid-template-columns: 1fr; }
+    .luat-btn { display: flex; align-items: center; gap: 12px; text-align: left; padding: 12px 14px; }
+    .luat-icon { font-size: 20px; margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+<nav style="position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(7,9,13,.95);backdrop-filter:blur(12px);border-bottom:1px solid #1e2d3d;padding:10px 16px;display:flex;gap:12px;align-items:center;overflow-x:auto"><a href="index.html" style="color:#6b7a8d;font-size:13px;text-decoration:none;white-space:nowrap">← Trang Chủ</a><a href="solo.html" style="color:#f5c842;font-size:13px;text-decoration:none;white-space:nowrap">⭐ Kaiser 1-1</a><a href="kaiser.html" style="color:#00d4ff;font-size:13px;text-decoration:none;white-space:nowrap">🛡️ Kaiser Team</a><a href="checktam.html" style="color:#3dcc6e;font-size:13px;text-decoration:none;white-space:nowrap">🎯 Check Tâm</a></nav>
+<header style="margin-top:44px">
+  <div class="logo-icon">⚖️</div>
+  <div>
+    <h1><span>Tố Phạm Luật</span> – Kaiser FF</h1>
+    <div class="header-sub">AI phân tích · Nguyễn Hoàng Khánh Nam</div>
+  </div>
+</header>
+
+<main>
+
+  <!-- BƯỚC 1: CHỌN BỘ LUẬT -->
+  <div>
+    <div class="step-label">Bước 1 · Chọn bộ luật</div>
+    <div class="luat-grid">
+      <div class="luat-btn gold" onclick="selectLuat('solo', this)">
+        <span class="luat-icon">⭐</span>
+        <div class="luat-name">Kaiser 1-1</div>
+        <div class="luat-sub">Solo · 1 vs 1</div>
+      </div>
+      <div class="luat-btn cyan" onclick="selectLuat('team', this)">
+        <span class="luat-icon">🛡️</span>
+        <div class="luat-name">Kaiser Team</div>
+        <div class="luat-sub">2v2 · 3v3 · 4v4</div>
+      </div>
+      <div class="luat-btn green" onclick="selectLuat('checktam', this)">
+        <span class="luat-icon">🎯</span>
+        <div class="luat-name">Check Tâm</div>
+        <div class="luat-sub">Solo &amp; Team</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BƯỚC 2: MÔ TẢ TÌNH HUỐNG -->
+  <div class="card">
+    <div class="step-label" style="margin-bottom:12px">Bước 2 · Mô tả tình huống (tùy chọn)</div>
+    <textarea id="moTa" placeholder="Ví dụ: đối thủ dùng súng lục ở ván 2, leo lên mái nhà bắn..."></textarea>
+  </div>
+
+  <!-- BƯỚC 3: UPLOAD BẰNG CHỨNG -->
+  <div class="card">
+    <div class="step-label" style="margin-bottom:12px">Bước 3 · Upload bằng chứng (ảnh / video)</div>
+    <div class="upload-zone" id="uploadZone">
+      <input type="file" id="fileInput" accept="image/*,video/*" multiple onchange="handleFiles(this.files)">
+      <span class="upload-icon">📎</span>
+      <div class="upload-text">Nhấn để chọn hoặc kéo thả file vào đây</div>
+      <div class="upload-hint">Ảnh JPG/PNG · Video MP4/MOV · Tối đa 10 file</div>
+    </div>
+    <div class="media-preview" id="mediaPreview"></div>
+  </div>
+
+  <!-- NÚT GỬI -->
+  <button class="btn-analyze" id="analyzeBtn" onclick="analyzeViolation()" disabled>
+    <span>🔍</span> Phân Tích Tố Phạm Luật
+  </button>
+
+  <!-- LOADING -->
+  <div class="loading-wrap" id="loadingWrap">
+    <div class="spinner"></div>
+    <div class="loading-text">AI đang phân tích bằng chứng<span class="loading-dots"></span></div>
+  </div>
+
+  <!-- KẾT QUẢ -->
+  <div class="result-box" id="resultBox">
+    <div class="result-verdict">
+      <span class="verdict-icon" id="verdictIcon">⚖️</span>
+      <div>
+        <div class="verdict-label" id="verdictLabel">Kết quả</div>
+        <div class="verdict-text" id="verdictText">–</div>
+      </div>
+    </div>
+    <div class="context-wrap" id="contextWrap">
+      <div class="context-panel luat-panel" id="luatPanel">
+        <div class="context-panel-header" onclick="this.parentElement.classList.toggle('open')">
+          <span class="context-panel-icon">📋</span>
+          <span class="context-panel-title">Bộ luật đã tra cứu</span>
+          <span class="context-panel-arrow">▼</span>
+        </div>
+        <div class="context-panel-body" id="luatPanelBody"></div>
+      </div>
+      <div class="context-panel cauhoi-panel" id="cauhoiPanel">
+        <div class="context-panel-header" onclick="this.parentElement.classList.toggle('open')">
+          <span class="context-panel-icon">💬</span>
+          <span class="context-panel-title">Câu hỏi đã gửi</span>
+          <span class="context-panel-arrow">▼</span>
+        </div>
+        <div class="context-panel-body" id="cauhoiPanelBody"></div>
+      </div>
+    </div>
+    <div class="context-divider"></div>
+    <div class="result-content" id="resultContent"></div>
+    <button class="btn-reset" onclick="resetForm()">🔄 Tố phạm luật mới</button>
+  </div>
+
+</main>
+
+<script>
+let selectedLuat = null;
+let uploadedFiles = [];
+
+// RULES DATABASE
+const RULES = {
+  solo: `
+BỘ LUẬT KAISER 1-1 (Solo):
+- Vũ khí Round 1: Chỉ được dùng Desert Eagle (DE) hoặc USP.
+- Từ Round 2 trở đi: Thỏa thuận trước — Full Tiểu Liên (MP40/UMP) hoặc Full Shotgun (M1014/M1887). Không có thỏa thuận thì súng tự do.
+- Cap USP Round 1: Nếu có giao kèo check tâm → cap đến hết Round 7; Không check tâm → cap đến hết Round 6.
+- Không nâng chip súng chính.
+- Cấm đi bộ từ 4 bước trở lên.
+- Cấm ke (núp góc) quá 3 giây. Chạy tại chỗ để ke góc quá 4 giây vẫn tính vi phạm.
+- Nhân vật: phải dùng Full Alok (kỹ năng Alok).
+- Keo tròn: Cấm đục keo từ ngoài (nếu keo nứt/vỡ → thua ngay). Cấm nhảy vào keo tròn. Người trong keo được bắn ra bình thường sau khi nhốt đối thủ. Cấm đặt keo tròn khi vòng bo trên minimap đã thu hết.
+- Lưu clip màn hình (1 máy/1 FF, trừ AFK). Quay đủ kill. Không chấp nhận clip 99%.
+- Nghiêm cấm hack, vật phẩm bổ trợ, gài luật vô lý.
+- Cấm ra thư (tự động thua nếu không giao kèo trước).
+`,
+  team: `
+BỘ LUẬT KAISER TEAM (2v2/3v3/4v4):
+- Ván 1: Mặc định chỉ dùng DE (Desert Eagle).
+- Từ ván 2 trở đi: Cấm toàn bộ súng lục.
+- Súng chính được dùng: USP 2, DE, MP40, UMP, M1014, M1887. Không nâng chip.
+- Cap USP Round 1: Có giao kèo check tâm → cap đến hết Round 7; Không check tâm → cap đến hết Round 6.
+- Nhân vật chỉ được chọn: Kelly, Caroline, Alok, Hayato. Vi phạm chưa giao tranh → out ngay ván 1 → thành phần bắn lại.
+- Pet chỉ dùng: Đại Bàng, Robo, Rockie (thêm pet khác khi không sở hữu các pet này).
+- Vị trí: Cấm lên lầu, nóc nhà, đỉnh đồi, vị trí quá cao. Được lên thùng công 1 (cấm thùng 2,3 phía trên). Nhà máy điện: được lên mái hiên, lên xe (dính bánh xe nhảy xuống ngay không bắn thì không sao). Tụ điểm hẹn: nóc nhà nhỏ đứng trên không bắn thì không sao.
+- Sự cố kỹ thuật: Văng Round 1 → bắn lại toàn bộ. Văng từ Round 2 → bắn bình thường. Lag 999+: đang hòa hoặc dẫn tỉ số thì được bắn lại (phải quay màn hình có chữ "Đang kết nối...").
+- Cấm tự bug keo hoặc bug cho đồng đội vào góc lag mà bên kia không bắn tới.
+- Tất cả thành viên lưu clip (1 máy/1 FF, trừ AFK). Quay đủ kill. Không xử clip 99%.
+- Nghiêm cấm hack, vật phẩm bổ trợ, gài luật vô lý.
+- Cấm ra thư (tự động thua nếu không giao kèo trước).
+`,
+  checktam: `
+QUY ĐỊNH CHECK TÂM:
+- Dụng cụ check: Bật điều khiển "Tất cả", check bằng UMP hoặc MP5.
+- Tư thế: Đứng check, quay rõ màn hình. Quay trúng IC → trừ phí.
+- Thời điểm quay: Bắt đầu từ khi tâm hiển thị vòng đỏ hoặc sau 10 giây cho đến khi check xong.
+- Vị trí: Phải ra giữa map mới bắt đầu bấm quay. Quay trước khi ra giữa → trừ phí.
+- Phải check đủ tất cả vị trí: Cổ, Ngực, Vai, Bụng, Đỉnh đầu (không quá cao), Xung quanh cơ thể, Khe chân qua gối. Thiếu vị trí → trừ phí bên check.
+- Sai được check lại 1 lần ngay sau đó.
+- Video quay liền mạch — ngắt tối đa 2 video, cách nhau không quá 10 giây.
+- Miễn check: bên thua AFK, giả AFK, cố tình phá không cho check, hoặc cố thủ trong nhà không ra khu vực giữa map.
+`
+};
+
+const LUAT_NAMES = {
+  solo: 'Kaiser 1-1 (Solo)',
+  team: 'Kaiser Team (2v2/3v3/4v4)',
+  checktam: 'Check Tâm'
+};
+
+function selectLuat(type, el) {
+  document.querySelectorAll('.luat-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  selectedLuat = type;
+  checkReady();
+}
+
+function checkReady() {
+  const btn = document.getElementById('analyzeBtn');
+  const hasInput = document.getElementById('moTa').value.trim() || uploadedFiles.length > 0;
+  btn.disabled = !(selectedLuat && hasInput);
+}
+
+document.getElementById('moTa').addEventListener('input', checkReady);
+
+// DRAG AND DROP
+const zone = document.getElementById('uploadZone');
+zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
+zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+zone.addEventListener('drop', e => {
+  e.preventDefault();
+  zone.classList.remove('dragover');
+  handleFiles(e.dataTransfer.files);
+});
+
+function handleFiles(files) {
+  const arr = Array.from(files).slice(0, 10 - uploadedFiles.length);
+  arr.forEach(f => {
+    if (uploadedFiles.length >= 10) return;
+    uploadedFiles.push(f);
+  });
+  renderPreviews();
+  checkReady();
+}
+
+function renderPreviews() {
+  const wrap = document.getElementById('mediaPreview');
+  wrap.innerHTML = '';
+  uploadedFiles.forEach((f, i) => {
+    const div = document.createElement('div');
+    div.className = 'preview-item';
+    if (f.type.startsWith('image/')) {
+      const img = document.createElement('img');
+      img.src = URL.createObjectURL(f);
+      div.appendChild(img);
+    } else {
+      const vt = document.createElement('div');
+      vt.className = 'video-thumb';
+      vt.innerHTML = '<span>🎬</span><span>VIDEO</span>';
+      div.appendChild(vt);
+    }
+    const btn = document.createElement('button');
+    btn.className = 'remove-btn';
+    btn.innerHTML = '×';
+    btn.onclick = () => { uploadedFiles.splice(i, 1); renderPreviews(); checkReady(); };
+    div.appendChild(btn);
+    wrap.appendChild(div);
+  });
+}
+
+async function fileToBase64(file) {
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(r.result.split(',')[1]);
+    r.onerror = rej;
+    r.readAsDataURL(file);
+  });
+}
+
+async function analyzeViolation() {
+  if (!selectedLuat) return alert('Vui lòng chọn bộ luật!');
+
+  const moTa = document.getElementById('moTa').value.trim();
+  if (!moTa && uploadedFiles.length === 0) return alert('Vui lòng mô tả tình huống hoặc upload bằng chứng!');
+
+  // Show loading
+  document.getElementById('analyzeBtn').disabled = true;
+  document.getElementById('loadingWrap').classList.add('show');
+  document.getElementById('resultBox').classList.remove('show', 'violation', 'ok', 'unclear');
+
+  try {
+    // Build content array
+    const contentArr = [];
+
+    // System prompt as first user message prefix
+    const systemText = `Bạn là trọng tài chuyên xét xử vi phạm luật Kaiser Free Fire. Nhiệm vụ của bạn:
+1. Đọc bộ luật được cung cấp
+2. Phân tích tình huống và/hoặc bằng chứng ảnh/video
+3. Suy luận chi tiết từng điểm
+4. Đưa ra kết luận RÕ RÀNG: CÓ PHẠM LUẬT / KHÔNG PHẠM LUẬT / CẦN XEM THÊM BẰNG CHỨNG
+
+BỘ LUẬT ÁP DỤNG (${LUAT_NAMES[selectedLuat]}):
+${RULES[selectedLuat]}
+
+Trả lời theo định dạng:
+🔎 PHÂN TÍCH:
+[phân tích chi tiết từng điểm nghi vấn dựa trên luật]
+
+📋 SUY LUẬN:
+[logic suy luận kết nối bằng chứng với quy định]
+
+⚖️ KẾT LUẬN:
+KẾT QUẢ: [CÓ PHẠM LUẬT / KHÔNG PHẠM LUẬT / CẦN THÊM BẰNG CHỨNG]
+ĐIỀU KHOẢN VI PHẠM: [nếu có]
+HÌNH THỨC XỬ LÝ: [theo luật]`;
+
+    // Add text
+    const userText = moTa
+      ? `Tình huống tố cáo: "${moTa}"\n\nHãy phân tích xem có vi phạm bộ luật không?`
+      : 'Hãy xem bằng chứng ảnh/video và phân tích xem có vi phạm bộ luật không?';
+
+    // Images only (API doesn't support video directly)
+    const imageFiles = uploadedFiles.filter(f => f.type.startsWith('image/'));
+    
+    const msgContent = [];
+    
+    // Build Grok message (OpenAI format)
+    const grokContent = [];
+
+    for (const imgFile of imageFiles.slice(0, 4)) {
+      const b64 = await fileToBase64(imgFile);
+      grokContent.push({
+        type: 'image_url',
+        image_url: { url: `data:${imgFile.type};base64,${b64}` }
+      });
+    }
+
+    grokContent.push({ type: 'text', text: `${systemText}\n\n${userText}` });
+
+    const grokModel = imageFiles.length > 0 ? 'grok-2-vision-1212' : 'grok-3';
+
+    const response = await fetch('https://api.x.ai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer xai-ClCdxZ6KND0PlSeoTS29GYfOYCzS3fzoePDZeHfA52CHKQJD8UvabBfnMxRNijoE6sqotJP1JucEmvst'
+      },
+      body: JSON.stringify({
+        model: grokModel,
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: grokContent }]
+      })
+    });
+
+    const data = await response.json();
+    const text = data.choices?.[0]?.message?.content || '';
+
+    if (!text) throw new Error('Không có phản hồi từ AI');
+
+    // Determine verdict class
+    let cls = 'unclear', icon = '🟡', label = 'Cần xem thêm bằng chứng', title = 'Chưa Kết Luận';
+    const upper = text.toUpperCase();
+    if (upper.includes('CÓ PHẠM LUẬT') || upper.includes('VI PHẠM')) {
+      cls = 'violation'; icon = '🔴'; label = 'Phán quyết của trọng tài'; title = '⛔ CÓ PHẠM LUẬT';
+    } else if (upper.includes('KHÔNG PHẠM LUẬT') || upper.includes('KHÔNG VI PHẠM')) {
+      cls = 'ok'; icon = '🟢'; label = 'Phán quyết của trọng tài'; title = '✅ KHÔNG PHẠM LUẬT';
+    } else if (upper.includes('CẦN THÊM') || upper.includes('CẦN XEM')) {
+      cls = 'unclear'; icon = '🟡'; label = 'Phán quyết của trọng tài'; title = '⚠️ Cần Thêm Bằng Chứng';
+    }
+
+    // Populate context panels
+    document.getElementById('luatPanelBody').textContent = RULES[selectedLuat].trim();
+    const videoCount = uploadedFiles.filter(f => f.type.startsWith('video/')).length;
+    const imgCount = imageFiles.length;
+    let cauhoiText = `Bộ luật: ${LUAT_NAMES[selectedLuat]}\n`;
+    if (moTa) cauhoiText += `\nMô tả tình huống:\n"${moTa}"`;
+    if (imgCount > 0) cauhoiText += `\n\nĐã gửi ${imgCount} ảnh bằng chứng`;
+    if (videoCount > 0) cauhoiText += `\n\nĐã gửi ${videoCount} video bằng chứng (AI phân tích theo mô tả)`;
+    document.getElementById('cauhoiPanelBody').textContent = cauhoiText;
+
+    document.getElementById('resultBox').className = `result-box show ${cls}`;
+    document.getElementById('verdictIcon').textContent = icon;
+    document.getElementById('verdictLabel').textContent = label;
+    document.getElementById('verdictText').textContent = title;
+    document.getElementById('resultContent').textContent = text;
+
+  } catch (err) {
+    document.getElementById('resultBox').className = 'result-box show unclear';
+    document.getElementById('verdictIcon').textContent = '❌';
+    document.getElementById('verdictLabel').textContent = 'Lỗi';
+    document.getElementById('verdictText').textContent = 'Không thể kết nối AI';
+    document.getElementById('resultContent').textContent = 'Lỗi: ' + err.message + '\n\nVui lòng thử lại.';
+  }
+
+  document.getElementById('loadingWrap').classList.remove('show');
+  document.getElementById('analyzeBtn').disabled = false;
+  document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetForm() {
+  selectedLuat = null;
+  uploadedFiles = [];
+  document.querySelectorAll('.luat-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('moTa').value = '';
+  document.getElementById('mediaPreview').innerHTML = '';
+  document.getElementById('fileInput').value = '';
+  document.getElementById('resultBox').classList.remove('show');
+  document.getElementById('analyzeBtn').disabled = true;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

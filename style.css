@@ -107,9 +107,16 @@ body {
   background: linear-gradient(90deg, transparent, rgba(245,200,66,.3), rgba(0,212,255,.3), transparent);
 }
 .admin-bar-inner {
-  max-width: 920px; margin: 0 auto;
-  display: flex; align-items: center; gap: 10px; flex-wrap: nowrap;
-  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  display: flex; align-items: center; gap: 10px;
+  white-space: nowrap; flex-wrap: nowrap;
+  animation: marquee 18s linear infinite;
+  width: max-content;
+}
+.admin-bar:hover .admin-bar-inner { animation-play-state: paused; }
+
+@keyframes marquee {
+  0%   { transform: translateX(100vw); }
+  100% { transform: translateX(-100%); }
 }
 .admin-title {
   display: flex; align-items: center; gap: 7px;
@@ -126,7 +133,7 @@ body {
   letter-spacing: 0 !important; font-size: 11px !important;
   -webkit-text-fill-color: unset !important; background: none !important;
 }
-.admin-contacts { display: flex; gap: 5px; flex-wrap: nowrap; flex-shrink: 0; }
+.admin-contacts { display: flex; gap: 5px; flex-wrap: nowrap; flex-shrink: 0; align-items: center; }
 .admin-chip {
   display: inline-flex; align-items: center; gap: 4px;
   padding: 3px 9px; border-radius: 5px;
