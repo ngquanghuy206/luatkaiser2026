@@ -623,7 +623,10 @@ HÌNH THỨC XỬ LÝ: [theo luật]`;
     const data = await response.json();
     const text = data.choices?.[0]?.message?.content || '';
 
-    if (!text) throw new Error('Không có phản hồi từ AI');
+    if (!text) {
+      const rawErr = JSON.stringify(data);
+      throw new Error('Không có phản hồi. Raw: ' + rawErr.substring(0,200));
+    }
 
     // Determine verdict class
     let cls = 'unclear', icon = '🟡', label = 'Cần xem thêm bằng chứng', title = 'Chưa Kết Luận';
@@ -653,11 +656,15 @@ HÌNH THỨC XỬ LÝ: [theo luật]`;
     document.getElementById('resultContent').textContent = text;
 
   } catch (err) {
+    let errMsg = err.message || 'Unknown error';
+    try {
+      // Try to get more details from response
+    } catch(e2) {}
     document.getElementById('resultBox').className = 'result-box show unclear';
     document.getElementById('verdictIcon').textContent = '❌';
-    document.getElementById('verdictLabel').textContent = 'Lỗi';
+    document.getElementById('verdictLabel').textContent = 'Lỗi kết nối';
     document.getElementById('verdictText').textContent = 'Không thể kết nối AI';
-    document.getElementById('resultContent').textContent = 'Lỗi: ' + err.message + '\n\nVui lòng thử lại.';
+    document.getElementById('resultContent').textContent = 'Chi tiết lỗi: ' + errMsg + '\n\nVui lòng F5 trang và thử lại.';
   }
 
   document.getElementById('loadingWrap').classList.remove('show');

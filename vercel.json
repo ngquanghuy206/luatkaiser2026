@@ -1,6 +1,8 @@
 {
   "version": 2,
-  "routes": [
-    { "src": "/api/grok", "dest": "/api/grok.js" }
-  ]
+  "functions": {
+    "api/grok.js": {
+      "runtime": "edge"
+    }
+  }
 }
