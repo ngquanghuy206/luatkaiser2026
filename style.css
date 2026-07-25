@@ -108,7 +108,8 @@ body {
 }
 .admin-bar-inner {
   max-width: 920px; margin: 0 auto;
-  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  display: flex; align-items: center; gap: 10px; flex-wrap: nowrap;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
 }
 .admin-title {
   display: flex; align-items: center; gap: 7px;
@@ -125,17 +126,16 @@ body {
   letter-spacing: 0 !important; font-size: 11px !important;
   -webkit-text-fill-color: unset !important; background: none !important;
 }
-.admin-contacts { display: flex; gap: 6px; flex-wrap: wrap; }
+.admin-contacts { display: flex; gap: 5px; flex-wrap: nowrap; flex-shrink: 0; }
 .admin-chip {
-  display: inline-flex; align-items: center; gap: 5px;
-  padding: 4px 11px; border-radius: 6px;
-  font-size: 11.5px; font-weight: 600;
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 9px; border-radius: 5px;
+  font-size: 11px; font-weight: 600;
   font-family: 'Rajdhani', sans-serif;
   text-decoration: none; border: 1px solid transparent;
-  transition: all .25s; letter-spacing: .03em;
-  backdrop-filter: blur(4px);
+  transition: all .2s; letter-spacing: .02em; white-space: nowrap;
 }
-.admin-chip:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,.4); }
+.admin-chip:hover { opacity: .75; }
 .admin-chip.zalo     { background: rgba(0,212,255,.06) padding-box, var(--g-cyan) border-box; color: #00d4ff; }
 .admin-chip.tiktok   { background: rgba(168,85,247,.06) padding-box, var(--g-purple) border-box; color: #c084fc; }
 .admin-chip.discord  { background: rgba(88,101,242,.06) padding-box, linear-gradient(135deg,#5865f2,#a0aaff) border-box; color: #a0aaff; }
@@ -147,7 +147,7 @@ body {
 .hero {
   position: relative; z-index: 1;
   display: flex; flex-direction: column; align-items: center;
-  text-align: center; padding: 64px 20px 48px; overflow: hidden;
+  text-align: center; padding: 32px 16px 24px; overflow: hidden;
 }
 .hero-grid {
   position: absolute; inset: 0;
@@ -169,7 +169,7 @@ body {
   border: 1px solid rgba(245,200,66,.35);
   border-radius: 999px; padding: 6px 20px;
   font-size: 10px; font-weight: 700;
-  letter-spacing: .18em; text-transform: uppercase; margin-bottom: 18px;
+  letter-spacing: .18em; text-transform: uppercase; margin-bottom: 10px;
   backdrop-filter: blur(8px);
 }
 .hero-badge-dot {
@@ -213,25 +213,26 @@ body {
 
 /* divider line */
 .hero-divider {
-  width: 120px; height: 1px;
+  width: 80px; height: 1px;
   background: linear-gradient(90deg, transparent, rgba(245,200,66,.4), rgba(0,212,255,.4), transparent);
-  margin: 24px 0 28px;
+  margin: 12px 0 10px;
 }
 
 /* ── HERO QUICK-STATS ── */
 .hero-info {
   display: flex;
   flex-direction: column;
-  gap: 8px; width: 100%; max-width: 560px;
+  gap: 7px; width: 100%; max-width: 560px;
+  margin-top: 14px;
 }
 
 /* mỗi panel = 1 hàng ngang */
 .hero-panel {
   position: relative;
-  display: flex; align-items: center; gap: 14px;
+  display: flex; align-items: center; gap: 0;
   background: rgba(255,255,255,.03);
   border: 1px solid var(--border);
-  border-radius: 12px; padding: 11px 16px;
+  border-radius: 10px; padding: 10px 14px 10px 16px;
   overflow: hidden;
   transition: border-color .25s, background .25s;
 }
@@ -244,24 +245,25 @@ body {
 .hero-panel:hover { border-color: var(--border2); background: rgba(255,255,255,.05); }
 
 .hero-panel-label {
-  display: flex; align-items: center; gap: 6px;
-  font-size: 9px; font-weight: 700; letter-spacing: .13em;
+  display: flex; align-items: center; gap: 5px;
+  font-size: 8.5px; font-weight: 700; letter-spacing: .11em;
   text-transform: uppercase; color: var(--muted);
-  white-space: nowrap; flex-shrink: 0; min-width: 100px;
+  white-space: nowrap; flex-shrink: 0; width: 130px;
 }
 
 /* đường kẻ dọc phân cách */
 .hero-panel-divider {
-  width: 1px; height: 28px; background: var(--border); flex-shrink: 0;
+  width: 1px; min-height: 20px; align-self: stretch;
+  background: var(--border); flex-shrink: 0; margin: 0 12px;
 }
 
-.hero-chips { display: flex; flex-wrap: wrap; gap: 5px; flex: 1; }
+.hero-chips { display: flex; flex-wrap: wrap; gap: 4px; flex: 1; align-items: center; }
 
 .hchip {
   font-family: 'Rajdhani', sans-serif;
-  font-weight: 700; font-size: 12px;
-  padding: 3px 10px; border-radius: 6px; border: 1px solid transparent;
-  letter-spacing: .02em;
+  font-weight: 700; font-size: 11.5px;
+  padding: 2px 9px; border-radius: 5px; border: 1px solid transparent;
+  letter-spacing: .02em; white-space: nowrap;
 }
 .hchip.char   { background: rgba(245,200,66,.08) padding-box, var(--g-gold) border-box; color: var(--gold); }
 .hchip.pet    { background: rgba(0,212,255,.07) padding-box, var(--g-cyan) border-box; color: var(--cyan); }
@@ -349,7 +351,7 @@ body {
 /* ══════════════════════════════
    SECTION
 ══════════════════════════════ */
-.section { max-width: 920px; margin: 0 auto; padding: 52px 20px; position: relative; z-index: 1; }
+.section { max-width: 920px; margin: 0 auto; padding: 28px 14px; position: relative; z-index: 1; }
 .section-divider {
   border: none;
   height: 1px;
@@ -528,7 +530,7 @@ body {
    SHARED CHECK SECTION
 ══════════════════════════════ */
 .shared-check {
-  max-width: 920px; margin: 0 auto; padding: 52px 20px 72px; position: relative; z-index: 1;
+  max-width: 920px; margin: 0 auto; padding: 28px 14px 48px; position: relative; z-index: 1;
 }
 .shared-check-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
 
@@ -580,7 +582,7 @@ footer span {
   position: relative; z-index: 1;
   background: #000000;
   border-top: 1px solid var(--border);
-  padding: 28px 16px 40px;
+  padding: 20px 14px 28px;
 }
 .choose-label {
   display: flex; align-items: center; justify-content: center; gap: 10px;
