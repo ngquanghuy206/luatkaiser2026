@@ -3,12 +3,12 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:      #05070b;
-  --surface: #090c14;
-  --card:    #0d1220;
-  --card2:   #101828;
-  --border:  #1c2840;
-  --border2: #253350;
+  --bg:      #000000;
+  --surface: #000000;
+  --card:    #0d0d0d;
+  --card2:   #111111;
+  --border:  #1e1e1e;
+  --border2: #2a2a2a;
   --text:    #c8d8ee;
   --muted:   #4e6080;
   --white:   #ffffff;
@@ -91,31 +91,11 @@ body {
 .gt-red    { background: var(--g-red);    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
 
 /* ══════════════════════════════
-   AMBIENT BACKGROUND ORBS
-══════════════════════════════ */
-.orb-wrap {
-  position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0;
-}
-.orb {
-  position: absolute; border-radius: 50%; filter: blur(90px); opacity: .12;
-}
-.orb-1 { width: 500px; height: 500px; background: #f5c842; top: -120px; left: -80px; animation: orbFloat1 18s ease-in-out infinite; }
-.orb-2 { width: 600px; height: 600px; background: #00d4ff; bottom: -150px; right: -100px; animation: orbFloat2 22s ease-in-out infinite; }
-.orb-3 { width: 350px; height: 350px; background: #a855f7; top: 40%; left: 50%; animation: orbFloat3 15s ease-in-out infinite; }
-
-@keyframes orbFloat1 { 0%,100%{transform:translate(0,0);} 50%{transform:translate(60px,40px);} }
-@keyframes orbFloat2 { 0%,100%{transform:translate(0,0);} 50%{transform:translate(-50px,-60px);} }
-@keyframes orbFloat3 { 0%,100%{transform:translate(-50%,-50%);} 50%{transform:translate(-50%,-50%) translate(40px,-30px);} }
-
-/* ══════════════════════════════
    ADMIN BAR
 ══════════════════════════════ */
 .admin-bar {
   position: relative; z-index: 10;
-  background: linear-gradient(90deg,
-    rgba(245,200,66,.06) 0%,
-    rgba(0,212,255,.04) 50%,
-    rgba(168,85,247,.06) 100%);
+  background: rgba(0,0,0,.95);
   border-bottom: 1px solid rgba(255,255,255,.07);
   padding: 9px 20px;
 }
@@ -286,7 +266,7 @@ body {
 ══════════════════════════════ */
 .topnav {
   position: sticky; top: 0; z-index: 100;
-  background: rgba(5,7,11,.95);
+  background: rgba(0,0,0,.97);
   backdrop-filter: blur(20px) saturate(160%);
   border-bottom: 1px solid var(--border);
   padding: 10px 14px;
@@ -591,7 +571,7 @@ footer span {
 ══════════════════════════════ */
 .choose-section {
   position: relative; z-index: 1;
-  background: linear-gradient(180deg, var(--bg) 0%, rgba(13,18,32,.5) 100%);
+  background: #000000;
   border-top: 1px solid var(--border);
   padding: 28px 16px 40px;
 }
