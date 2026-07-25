@@ -3,7 +3,7 @@ services:
     name: luatdzikaiser2026
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: python server.py
+    startCommand: gunicorn -k gevent -w 1 --timeout 120 server:app
     envVars:
       - key: GEMINI_MODEL
         value: gemini-2.0-flash-lite

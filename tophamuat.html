@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>To Pham Luat - Kaiser FF</title>
+<title>Tố Phạm Luật – Kaiser FF</title>
 <style>
   :root{--bg:#07090d;--surface:#0d1117;--card:#111820;--border:#1e2d3d;--cyan:#00d4ff;--green:#3dcc6e;--red:#ff4d4d;--text:#e8eaf0;--muted:#6b7a8d;--g-gold:linear-gradient(135deg,#f5c842,#c8902a);--g-cyan:linear-gradient(135deg,#00d4ff,#7ffbff);--g-green:linear-gradient(135deg,#3dcc6e,#a0f0b0)}
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -68,12 +68,9 @@
   .result-box.unclear .verdict-text{color:#f5c842}
   .result-box.error{background:rgba(255,77,77,.05);border-color:rgba(255,77,77,.25)}
   .result-box.error .verdict-text{color:#ff6060}
-
-  /* STREAMING TEXT */
   .result-content{font-size:14px;line-height:1.8;color:#c8d0dc;white-space:pre-wrap;word-break:break-word;min-height:20px}
   .cursor{display:inline-block;width:2px;height:1em;background:var(--cyan);margin-left:2px;animation:blink .7s steps(1) infinite;vertical-align:text-bottom}
   @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-
   .loading-wrap{display:none;text-align:center;padding:28px}
   .loading-wrap.show{display:block}
   .spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--cyan);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 14px}
@@ -100,89 +97,89 @@
 <div class="orb orb1"></div>
 <div class="orb orb2"></div>
 <nav>
-  <a href="index.html">&#8592; Trang Chu</a>
-  <a href="solo.html" style="color:#f5c842">&#11088; Kaiser 1-1</a>
-  <a href="kaiser.html" style="color:#00d4ff">&#128737;&#65039; Kaiser Team</a>
-  <a href="checktam.html" style="color:#3dcc6e">&#127919; Check Tam</a>
+  <a href="index.html">← Trang Chủ</a>
+  <a href="solo.html" style="color:#f5c842">⭐ Kaiser 1-1</a>
+  <a href="kaiser.html" style="color:#00d4ff">🛡️ Kaiser Team</a>
+  <a href="checktam.html" style="color:#3dcc6e">🎯 Check Tâm</a>
 </nav>
 <header style="margin-top:44px">
-  <div class="logo-icon">&#9878;&#65039;</div>
+  <div class="logo-icon">⚖️</div>
   <div>
-    <h1><span>To Pham Luat</span> &#8211; Kaiser FF</h1>
-    <div class="header-sub">AI phan tich &#183; Nguyen Hoang Khanh Nam</div>
+    <h1><span>Tố Phạm Luật</span> – Kaiser FF</h1>
+    <div class="header-sub">AI phân tích · Nguyễn Hoàng Khánh Nam</div>
   </div>
 </header>
 <main>
   <div>
-    <div class="step-label">Buoc 1 &#183; Chon bo luat</div>
+    <div class="step-label">Bước 1 · Chọn bộ luật</div>
     <div class="luat-grid">
       <div class="luat-btn gold" onclick="selectLuat('solo',this)">
-        <span class="luat-icon">&#11088;</span>
+        <span class="luat-icon">⭐</span>
         <div class="luat-name">Kaiser 1-1</div>
-        <div class="luat-sub">Solo &#183; 1 vs 1</div>
+        <div class="luat-sub">Solo · 1 vs 1</div>
       </div>
       <div class="luat-btn cyan" onclick="selectLuat('team',this)">
-        <span class="luat-icon">&#128737;&#65039;</span>
+        <span class="luat-icon">🛡️</span>
         <div class="luat-name">Kaiser Team</div>
-        <div class="luat-sub">2v2 &#183; 3v3 &#183; 4v4</div>
+        <div class="luat-sub">2v2 · 3v3 · 4v4</div>
       </div>
       <div class="luat-btn green" onclick="selectLuat('checktam',this)">
-        <span class="luat-icon">&#127919;</span>
-        <div class="luat-name">Check Tam</div>
+        <span class="luat-icon">🎯</span>
+        <div class="luat-name">Check Tâm</div>
         <div class="luat-sub">Solo &amp; Team</div>
       </div>
     </div>
   </div>
   <div class="card">
-    <div class="step-label" style="margin-bottom:12px">Buoc 2 &#183; Mo ta tinh huong (tuy chon)</div>
-    <textarea id="moTa" placeholder="Vi du: doi thu dung sung luc o van 2, leo len mai nha ban..." rows="4"></textarea>
+    <div class="step-label" style="margin-bottom:12px">Bước 2 · Mô tả tình huống (tùy chọn)</div>
+    <textarea id="moTa" placeholder="Ví dụ: đối thủ dùng súng lục ở ván 2, leo lên mái nhà bắn..." rows="4"></textarea>
   </div>
   <div class="card">
-    <div class="step-label" style="margin-bottom:12px">Buoc 3 &#183; Upload bang chung (anh)</div>
+    <div class="step-label" style="margin-bottom:12px">Bước 3 · Upload bằng chứng (ảnh)</div>
     <div class="upload-zone" id="uploadZone">
       <input type="file" id="fileInput" accept="image/*" multiple onchange="handleFiles(this.files)">
-      <span class="upload-icon">&#128204;</span>
-      <div class="upload-text">Nhan de chon anh bang chung</div>
-      <div class="upload-hint">JPG/PNG &#183; Toi da 4 anh</div>
+      <span class="upload-icon">📎</span>
+      <div class="upload-text">Nhấn để chọn ảnh bằng chứng</div>
+      <div class="upload-hint">JPG/PNG · Tối đa 4 ảnh</div>
     </div>
     <div class="media-preview" id="mediaPreview"></div>
   </div>
   <button class="btn-analyze" id="analyzeBtn" onclick="analyzeViolation()" disabled>
-    &#128269; Phan Tich To Pham Luat
+    🔍 Phân Tích Tố Phạm Luật
   </button>
   <div class="loading-wrap" id="loadingWrap">
     <div class="spinner"></div>
-    <div class="loading-text">Dang ket noi AI...</div>
+    <div class="loading-text">Đang kết nối AI...</div>
   </div>
   <div class="result-box" id="resultBox">
     <div class="result-verdict">
-      <span class="verdict-icon" id="verdictIcon">&#9878;&#65039;</span>
+      <span class="verdict-icon" id="verdictIcon">⚖️</span>
       <div>
-        <div class="verdict-label" id="verdictLabel">Ket qua</div>
-        <div class="verdict-text" id="verdictText">&#8211;</div>
+        <div class="verdict-label" id="verdictLabel">Kết quả</div>
+        <div class="verdict-text" id="verdictText">–</div>
       </div>
     </div>
     <div class="context-wrap">
       <div class="context-panel luat-panel">
         <div class="context-panel-header" onclick="this.parentElement.classList.toggle('open')">
-          <span class="context-panel-icon">&#128203;</span>
-          <span class="context-panel-title">Bo luat da tra cuu</span>
-          <span class="context-panel-arrow">&#9660;</span>
+          <span class="context-panel-icon">📋</span>
+          <span class="context-panel-title">Bộ luật đã tra cứu</span>
+          <span class="context-panel-arrow">▼</span>
         </div>
         <div class="context-panel-body" id="luatPanelBody"></div>
       </div>
       <div class="context-panel cauhoi-panel">
         <div class="context-panel-header" onclick="this.parentElement.classList.toggle('open')">
-          <span class="context-panel-icon">&#128172;</span>
-          <span class="context-panel-title">Cau hoi da gui</span>
-          <span class="context-panel-arrow">&#9660;</span>
+          <span class="context-panel-icon">💬</span>
+          <span class="context-panel-title">Câu hỏi đã gửi</span>
+          <span class="context-panel-arrow">▼</span>
         </div>
         <div class="context-panel-body" id="cauhoiPanelBody"></div>
       </div>
     </div>
     <div class="context-divider"></div>
     <div class="result-content" id="resultContent"></div>
-    <button class="btn-reset" onclick="resetForm()">&#128260; To pham luat moi</button>
+    <button class="btn-reset" onclick="resetForm()">🔄 Tố phạm luật mới</button>
   </div>
 </main>
 <script>
@@ -191,41 +188,41 @@ let selectedLuat = null;
 let uploadedFiles = [];
 
 const RULES = {
-  solo:`BO LUAT KAISER 1-1 (Solo):
-- Vu khi Round 1: Chi duoc dung Desert Eagle (DE) hoac USP.
-- Tu Round 2 tro di: Thoa thuan truoc - Full Tieu Lien (MP40/UMP) hoac Full Shotgun (M1014/M1887). Khong co thoa thuan thi sung tu do.
-- Cap USP Round 1: Co giao keo check tam -> cap den het Round 7; Khong check tam -> cap den het Round 6.
-- Khong nang chip sung chinh.
-- Cam di bo tu 4 buoc tro len.
-- Cam ke (nup goc) qua 3 giay. Chay tai cho de ke goc qua 4 giay van tinh vi pham.
-- Nhan vat: phai dung Full Alok (ky nang Alok).
-- Keo tron: Cam duc keo tu ngoai. Cam nhay vao keo tron. Cam dat keo tron khi vong bo tren minimap da thu het.
-- Luu clip man hinh. Quay du kill. Khong chap nhan clip 99%.
-- Nghiem cam hack, vat pham bo tro, gai luat vo ly.
-- Cam ra thu (tu dong thua neu khong giao keo truoc).`,
-  team:`BO LUAT KAISER TEAM (2v2/3v3/4v4):
-- Van 1: Mac dinh chi dung DE (Desert Eagle).
-- Tu van 2 tro di: Cam toan bo sung luc.
-- Sung chinh duoc dung: USP 2, DE, MP40, UMP, M1014, M1887. Khong nang chip.
-- Cap USP Round 1: Co giao keo check tam -> cap den het Round 7; Khong check tam -> cap den het Round 6.
-- Nhan vat chi duoc chon: Kelly, Caroline, Alok, Hayato.
-- Pet chi dung: Dai Bang, Robo, Rockie.
-- Vi tri: Cam len lau, noc nha, dinh doi, vi tri qua cao. Duoc len thung cong 1.
-- Su co ky thuat: Vang Round 1 -> ban lai toan bo. Vang tu Round 2 -> ban binh thuong.
-- Cam tu bug keo hoac bug cho dong doi vao goc lag.
-- Tat ca thanh vien luu clip. Khong xu clip 99%.
-- Nghiem cam hack, vat pham bo tro, gai luat vo ly. Cam ra thu.`,
-  checktam:`QUY DINH CHECK TAM:
-- Dung cu check: Bat dieu khien "Tat ca", check bang UMP hoac MP5.
-- Tu the: Dung check, quay ro man hinh. Quay trung IC -> tru phi.
-- Thoi diem quay: Bat dau tu khi tam hien thi vong do hoac sau 10 giay cho den khi check xong.
-- Vi tri: Phai ra giua map moi bat dau bam quay. Quay truoc khi ra giua -> tru phi.
-- Phai check du tat ca vi tri: Co, Nguc, Vai, Bung, Dinh dau, Xung quanh co the, Khe chan qua goi.
-- Sai duoc check lai 1 lan ngay sau do.
-- Video quay lien mach - ngat toi da 2 video, cach nhau khong qua 10 giay.
-- Mien check: ben thua AFK, gia AFK, co tinh pha khong cho check, hoac co thu trong nha.`
+  solo:`BỘ LUẬT KAISER 1-1 (Solo):
+- Vũ khí Round 1: Chỉ được dùng Desert Eagle (DE) hoặc USP.
+- Từ Round 2 trở đi: Thỏa thuận trước — Full Tiểu Liên (MP40/UMP) hoặc Full Shotgun (M1014/M1887). Không có thỏa thuận thì súng tự do.
+- Cap USP Round 1: Có giao kèo check tâm → cap đến hết Round 7; Không check tâm → cap đến hết Round 6.
+- Không nâng chip súng chính.
+- Cấm đi bộ từ 4 bước trở lên.
+- Cấm ke (núp góc) quá 3 giây. Chạy tại chỗ để ke góc quá 4 giây vẫn tính vi phạm.
+- Nhân vật: phải dùng Full Alok (kỹ năng Alok).
+- Keo tròn: Cấm đục keo từ ngoài. Cấm nhảy vào keo tròn. Cấm đặt keo tròn khi vòng bo trên minimap đã thu hết.
+- Lưu clip màn hình. Quay đủ kill. Không chấp nhận clip 99%.
+- Nghiêm cấm hack, vật phẩm bổ trợ, gài luật vô lý.
+- Cấm ra thư (tự động thua nếu không giao kèo trước).`,
+  team:`BỘ LUẬT KAISER TEAM (2v2/3v3/4v4):
+- Ván 1: Mặc định chỉ dùng DE (Desert Eagle).
+- Từ ván 2 trở đi: Cấm toàn bộ súng lục.
+- Súng chính được dùng: USP 2, DE, MP40, UMP, M1014, M1887. Không nâng chip.
+- Cap USP Round 1: Có giao kèo check tâm → cap đến hết Round 7; Không check tâm → cap đến hết Round 6.
+- Nhân vật chỉ được chọn: Kelly, Caroline, Alok, Hayato.
+- Pet chỉ dùng: Đại Bàng, Robo, Rockie.
+- Vị trí: Cấm lên lầu, nóc nhà, đỉnh đồi, vị trí quá cao. Được lên thùng công 1.
+- Sự cố kỹ thuật: Văng Round 1 → bắn lại toàn bộ. Văng từ Round 2 → bắn bình thường.
+- Cấm tự bug keo hoặc bug cho đồng đội vào góc lag.
+- Tất cả thành viên lưu clip. Không xử clip 99%.
+- Nghiêm cấm hack, vật phẩm bổ trợ, gài luật vô lý. Cấm ra thư.`,
+  checktam:`QUY ĐỊNH CHECK TÂM:
+- Dụng cụ check: Bật điều khiển "Tất cả", check bằng UMP hoặc MP5.
+- Tư thế: Đứng check, quay rõ màn hình. Quay trúng IC → trừ phí.
+- Thời điểm quay: Bắt đầu từ khi tâm hiển thị vòng đỏ hoặc sau 10 giây cho đến khi check xong.
+- Vị trí: Phải ra giữa map mới bắt đầu bấm quay. Quay trước khi ra giữa → trừ phí.
+- Phải check đủ tất cả vị trí: Cổ, Ngực, Vai, Bụng, Đỉnh đầu, Xung quanh cơ thể, Khe chân qua gối.
+- Sai được check lại 1 lần ngay sau đó.
+- Video quay liền mạch — ngắt tối đa 2 video, cách nhau không quá 10 giây.
+- Miễn check: bên thua AFK, giả AFK, cố tình phá không cho check, hoặc cố thủ trong nhà.`
 };
-const LUAT_NAMES={solo:'Kaiser 1-1 (Solo)',team:'Kaiser Team (2v2/3v3/4v4)',checktam:'Check Tam'};
+const LUAT_NAMES={solo:'Kaiser 1-1 (Solo)',team:'Kaiser Team (2v2/3v3/4v4)',checktam:'Check Tâm'};
 
 function selectLuat(type,el){
   document.querySelectorAll('.luat-btn').forEach(b=>b.classList.remove('active'));
@@ -238,9 +235,8 @@ function checkReady(){
 document.getElementById('moTa').addEventListener('input',checkReady);
 
 const zone=document.getElementById('uploadZone');
-zone.addEventListener('dragover',e=>{e.preventDefault();zone.classList.add('dragover')});
-zone.addEventListener('dragleave',()=>zone.classList.remove('dragover'));
-zone.addEventListener('drop',e=>{e.preventDefault();zone.classList.remove('dragover');handleFiles(e.dataTransfer.files)});
+zone.addEventListener('dragover',e=>{e.preventDefault()});
+zone.addEventListener('drop',e=>{e.preventDefault();handleFiles(e.dataTransfer.files)});
 
 function handleFiles(files){
   const arr=Array.from(files).filter(f=>f.type.startsWith('image/')).slice(0,4-uploadedFiles.length);
@@ -252,7 +248,7 @@ function renderPreviews(){
   uploadedFiles.forEach((f,i)=>{
     const div=document.createElement('div');div.className='preview-item';
     const img=document.createElement('img');img.src=URL.createObjectURL(f);div.appendChild(img);
-    const btn=document.createElement('button');btn.className='remove-btn';btn.innerHTML='x';
+    const btn=document.createElement('button');btn.className='remove-btn';btn.textContent='×';
     btn.onclick=()=>{uploadedFiles.splice(i,1);renderPreviews();checkReady()};
     div.appendChild(btn);wrap.appendChild(div);
   });
@@ -264,33 +260,33 @@ async function fileToBase64(file){
 }
 
 async function analyzeViolation(){
-  if(!selectedLuat){alert('Vui long chon bo luat!');return}
+  if(!selectedLuat){alert('Vui lòng chọn bộ luật!');return}
   const moTa=document.getElementById('moTa').value.trim();
-  if(!moTa&&uploadedFiles.length===0){alert('Vui long mo ta hoac upload bang chung!');return}
+  if(!moTa&&uploadedFiles.length===0){alert('Vui lòng mô tả hoặc upload bằng chứng!');return}
 
   document.getElementById('analyzeBtn').disabled=true;
   document.getElementById('loadingWrap').classList.add('show');
   document.getElementById('resultBox').className='result-box';
 
-  const systemPrompt=`Ban la trong tai chuyen xet xu vi pham luat Kaiser Free Fire.
-BO LUAT AP DUNG (${LUAT_NAMES[selectedLuat]}):
+  const systemPrompt=`Bạn là trọng tài chuyên xét xử vi phạm luật Kaiser Free Fire.
+BỘ LUẬT ÁP DỤNG (${LUAT_NAMES[selectedLuat]}):
 ${RULES[selectedLuat]}
 
-Phan tich va tra loi theo dinh dang:
-PHAN TICH:
-[phan tich chi tiet tung diem nghi van dua tren luat]
+Phân tích và trả lời theo định dạng:
+🔎 PHÂN TÍCH:
+[phân tích chi tiết từng điểm nghi vấn dựa trên luật]
 
-SUY LUAN:
-[logic suy luan ket noi bang chung voi quy dinh]
+📋 SUY LUẬN:
+[logic suy luận kết nối bằng chứng với quy định]
 
-KET LUAN:
-KET QUA: [CO PHAM LUAT / KHONG PHAM LUAT / CAN THEM BANG CHUNG]
-DIEU KHOAN VI PHAM: [neu co]
-HINH THUC XU LY: [theo luat]`;
+⚖️ KẾT LUẬN:
+KẾT QUẢ: [CÓ PHẠM LUẬT / KHÔNG PHẠM LUẬT / CẦN THÊM BẰNG CHỨNG]
+ĐIỀU KHOẢN VI PHẠM: [nếu có]
+H�NH THỨC XỬ LÝ: [theo luật]`;
 
   const userText=moTa
-    ?`Tinh huong to cao: "${moTa}"\n\nHay phan tich xem co vi pham bo luat khong?`
-    :'Hay xem bang chung anh va phan tich xem co vi pham bo luat khong?';
+    ?`Tình huống tố cáo: "${moTa}"\n\nHãy phân tích xem có vi phạm bộ luật không?`
+    :'Hãy xem bằng chứng ảnh và phân tích xem có vi phạm bộ luật không?';
 
   const parts=[];
   for(const imgFile of uploadedFiles.slice(0,4)){
@@ -299,30 +295,36 @@ HINH THUC XU LY: [theo luat]`;
   }
   parts.push({text:systemPrompt+'\n\n'+userText});
 
-  // Fill panels
   document.getElementById('luatPanelBody').textContent=RULES[selectedLuat].trim();
-  let cq=`Bo luat: ${LUAT_NAMES[selectedLuat]}\n`;
-  if(moTa) cq+=`\nMo ta:\n"${moTa}"`;
-  if(uploadedFiles.length>0) cq+=`\n\nDa gui ${uploadedFiles.length} anh bang chung`;
+  let cq=`Bộ luật: ${LUAT_NAMES[selectedLuat]}\n`;
+  if(moTa) cq+=`\nMô tả:\n"${moTa}"`;
+  if(uploadedFiles.length>0) cq+=`\n\nĐã gửi ${uploadedFiles.length} ảnh bằng chứng`;
   document.getElementById('cauhoiPanelBody').textContent=cq;
 
-  // Hien thi khung ngay, chuan bi streaming
   document.getElementById('loadingWrap').classList.remove('show');
   document.getElementById('resultBox').className='result-box show unclear';
   document.getElementById('verdictIcon').textContent='⏳';
-  document.getElementById('verdictLabel').textContent='AI dang phan tich';
-  document.getElementById('verdictText').textContent='Dang xu ly...';
+  document.getElementById('verdictLabel').textContent='AI đang phân tích';
+  document.getElementById('verdictText').textContent='Đang xử lý...';
   const contentEl=document.getElementById('resultContent');
   contentEl.innerHTML='<span class="cursor"></span>';
 
   try{
+    // Wake up Render neu dang ngu
+    try{ await fetch(`${RENDER_URL}/`,{signal:AbortSignal.timeout(8000)}); }catch(e){}
+
+    const controller=new AbortController();
+    const timeout=setTimeout(()=>controller.abort(),120000);
+
     const response=await fetch(`${RENDER_URL}/api/analyze`,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({parts})
+      body:JSON.stringify({parts}),
+      signal:controller.signal
     });
+    clearTimeout(timeout);
 
-    if(!response.ok) throw new Error(`Server loi: ${response.status}`);
+    if(!response.ok) throw new Error(`Server lỗi: ${response.status}`);
 
     const reader=response.body.getReader();
     const decoder=new TextDecoder();
@@ -333,34 +335,30 @@ HINH THUC XU LY: [theo luat]`;
       if(done) break;
       const chunk=decoder.decode(value,{stream:true});
       fullText+=chunk;
-      // Hien thi tung chu voi cursor nhay
       contentEl.innerHTML=fullText+'<span class="cursor"></span>';
     }
 
-    // Xoa cursor, hien thi text final
     contentEl.textContent=fullText;
+    if(!fullText) throw new Error('Không nhận được phản hồi từ AI');
 
-    if(!fullText) throw new Error('Khong nhan duoc phan hoi tu AI');
-
-    // Cap nhat verdict
     const upper=fullText.toUpperCase();
-    let cls='unclear',icon='⚠️',title='Can Them Bang Chung';
-    if(upper.includes('CO PHAM LUAT')||(upper.includes('VI PHAM')&&!upper.includes('KHONG VI PHAM'))){
-      cls='violation';icon='🔴';title='CO PHAM LUAT';
-    } else if(upper.includes('KHONG PHAM LUAT')||upper.includes('KHONG VI PHAM')){
-      cls='ok';icon='🟢';title='KHONG PHAM LUAT';
+    let cls='unclear',icon='⚠️',title='⚠️ Cần Thêm Bằng Chứng';
+    if(upper.includes('CÓ PHẠM LUẬT')||(upper.includes('VI PHẠM')&&!upper.includes('KHÔNG VI PHẠM'))){
+      cls='violation';icon='🔴';title='⛔ CÓ PHẠM LUẬT';
+    } else if(upper.includes('KHÔNG PHẠM LUẬT')||upper.includes('KHÔNG VI PHẠM')){
+      cls='ok';icon='🟢';title='✅ KHÔNG PHẠM LUẬT';
     }
     document.getElementById('resultBox').className=`result-box show ${cls}`;
     document.getElementById('verdictIcon').textContent=icon;
-    document.getElementById('verdictLabel').textContent='Phan quyet cua trong tai';
+    document.getElementById('verdictLabel').textContent='Phán quyết của trọng tài';
     document.getElementById('verdictText').textContent=title;
 
   }catch(err){
     document.getElementById('resultBox').className='result-box show error';
     document.getElementById('verdictIcon').textContent='❌';
-    document.getElementById('verdictLabel').textContent='LOI';
-    document.getElementById('verdictText').textContent='Khong the ket noi AI';
-    contentEl.textContent='Chi tiet loi:\n'+err.message;
+    document.getElementById('verdictLabel').textContent='LỖI';
+    document.getElementById('verdictText').textContent='Không thể kết nối AI';
+    contentEl.textContent='Chi tiết lỗi:\n'+err.message;
   }
 
   document.getElementById('analyzeBtn').disabled=false;
