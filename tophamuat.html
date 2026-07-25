@@ -99,23 +99,6 @@
   .context-panel.luat-panel .context-panel-title{color:#f5c842}
   .context-panel.cauhoi-panel .context-panel-title{color:#00d4ff}
   .context-divider{height:1px;background:var(--border);margin:14px 0}
-
-  /* KEY SETUP */
-  .setup-box{background:rgba(0,212,255,.04);border:1px solid rgba(0,212,255,.2);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px}
-  .setup-box h3{color:#00d4ff;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
-  .setup-box p{font-size:12px;color:var(--muted);line-height:1.6}
-  .setup-box a{color:#00d4ff;text-decoration:none}
-  .key-row{display:flex;gap:8px}
-  .setup-box input{flex:1;background:var(--surface);border:1px solid rgba(0,212,255,.3);border-radius:8px;color:var(--text);font-family:monospace;font-size:12px;padding:10px 12px;outline:none;-webkit-appearance:none;min-width:0}
-  .setup-box input:focus{border-color:rgba(0,212,255,.7)}
-  .btn-save-key{padding:10px 14px;border:none;border-radius:8px;background:var(--g-cyan);color:#05070b;font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap;touch-action:manipulation;flex-shrink:0}
-  .key-status{font-size:11px;text-align:center}
-  .key-status.ok{color:#3dcc6e}
-  .key-status.none{color:var(--muted)}
-
-  /* FREE BADGE */
-  .free-badge{display:inline-block;background:rgba(61,204,110,.15);border:1px solid rgba(61,204,110,.3);color:#3dcc6e;font-size:10px;font-weight:700;letter-spacing:1px;padding:2px 8px;border-radius:20px;text-transform:uppercase;vertical-align:middle;margin-left:6px}
-
   @media(max-width:400px){.luat-grid{grid-template-columns:1fr}.luat-btn{display:flex;align-items:center;gap:12px;text-align:left;padding:12px 14px}.luat-icon{font-size:20px;margin:0}}
 </style>
 </head>
@@ -139,22 +122,6 @@
 </header>
 
 <main>
-
-  <!-- KEY SETUP -->
-  <div class="setup-box" id="setupBox">
-    <h3>🔑 Google Gemini API Key <span class="free-badge">MIỄN PHÍ</span></h3>
-    <p>
-      Dùng Gemini AI — <strong style="color:#3dcc6e">hoàn toàn miễn phí</strong>, không cần thẻ tín dụng.<br>
-      1. Vào <a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com/app/apikey</a><br>
-      2. Đăng nhập Google → nhấn <strong>Create API key</strong><br>
-      3. Copy key dán vào đây
-    </p>
-    <div class="key-row">
-      <input type="password" id="apiKeyInput" placeholder="AIza..." autocomplete="off" spellcheck="false">
-      <button class="btn-save-key" onclick="saveApiKey()">💾 Lưu</button>
-    </div>
-    <div class="key-status none" id="keyStatus">Chưa có key</div>
-  </div>
 
   <!-- BƯỚC 1 -->
   <div>
@@ -244,7 +211,6 @@
 <script>
 let selectedLuat = null;
 let uploadedFiles = [];
-const KEY_STORAGE = 'kaiser_gemini_key';
 
 const RULES = {
   solo:`BỘ LUẬT KAISER 1-1 (Solo):
@@ -259,7 +225,6 @@ const RULES = {
 - Lưu clip màn hình. Quay đủ kill. Không chấp nhận clip 99%.
 - Nghiêm cấm hack, vật phẩm bổ trợ, gài luật vô lý.
 - Cấm ra thư (tự động thua nếu không giao kèo trước).`,
-
   team:`BỘ LUẬT KAISER TEAM (2v2/3v3/4v4):
 - Ván 1: Mặc định chỉ dùng DE (Desert Eagle).
 - Từ ván 2 trở đi: Cấm toàn bộ súng lục.
@@ -272,7 +237,6 @@ const RULES = {
 - Cấm tự bug keo hoặc bug cho đồng đội vào góc lag.
 - Tất cả thành viên lưu clip. Không xử clip 99%.
 - Nghiêm cấm hack, vật phẩm bổ trợ, gài luật vô lý. Cấm ra thư.`,
-
   checktam:`QUY ĐỊNH CHECK TÂM:
 - Dụng cụ check: Bật điều khiển "Tất cả", check bằng UMP hoặc MP5.
 - Tư thế: Đứng check, quay rõ màn hình. Quay trúng IC → trừ phí.
@@ -283,42 +247,16 @@ const RULES = {
 - Video quay liền mạch — ngắt tối đa 2 video, cách nhau không quá 10 giây.
 - Miễn check: bên thua AFK, giả AFK, cố tình phá không cho check, hoặc cố thủ trong nhà.`
 };
-
 const LUAT_NAMES = {solo:'Kaiser 1-1 (Solo)',team:'Kaiser Team (2v2/3v3/4v4)',checktam:'Check Tâm'};
-
-function loadApiKey(){
-  const k = localStorage.getItem(KEY_STORAGE)||'';
-  if(k){
-    document.getElementById('apiKeyInput').value=k;
-    document.getElementById('keyStatus').textContent='✅ Đã có key – sẵn sàng phân tích';
-    document.getElementById('keyStatus').className='key-status ok';
-  }
-  return k;
-}
-
-function saveApiKey(){
-  const k = document.getElementById('apiKeyInput').value.trim();
-  if(!k){ alert('Vui lòng nhập API Key!'); return; }
-  localStorage.setItem(KEY_STORAGE,k);
-  document.getElementById('keyStatus').textContent='✅ Đã lưu key – sẵn sàng phân tích';
-  document.getElementById('keyStatus').className='key-status ok';
-  checkReady();
-}
 
 function selectLuat(type,el){
   document.querySelectorAll('.luat-btn').forEach(b=>b.classList.remove('active'));
-  el.classList.add('active');
-  selectedLuat=type;
-  checkReady();
+  el.classList.add('active'); selectedLuat=type; checkReady();
 }
-
 function checkReady(){
-  const btn=document.getElementById('analyzeBtn');
-  const hasKey=!!localStorage.getItem(KEY_STORAGE);
   const hasInput=document.getElementById('moTa').value.trim()||uploadedFiles.length>0;
-  btn.disabled=!(hasKey&&selectedLuat&&hasInput);
+  document.getElementById('analyzeBtn').disabled=!(selectedLuat&&hasInput);
 }
-
 document.getElementById('moTa').addEventListener('input',checkReady);
 
 const zone=document.getElementById('uploadZone');
@@ -331,32 +269,23 @@ function handleFiles(files){
   arr.forEach(f=>{if(uploadedFiles.length<4)uploadedFiles.push(f)});
   renderPreviews();checkReady();
 }
-
 function renderPreviews(){
-  const wrap=document.getElementById('mediaPreview');
-  wrap.innerHTML='';
+  const wrap=document.getElementById('mediaPreview'); wrap.innerHTML='';
   uploadedFiles.forEach((f,i)=>{
     const div=document.createElement('div');div.className='preview-item';
-    const img=document.createElement('img');img.src=URL.createObjectURL(f);
-    div.appendChild(img);
+    const img=document.createElement('img');img.src=URL.createObjectURL(f);div.appendChild(img);
     const btn=document.createElement('button');btn.className='remove-btn';btn.innerHTML='×';
     btn.onclick=()=>{uploadedFiles.splice(i,1);renderPreviews();checkReady()};
     div.appendChild(btn);wrap.appendChild(div);
   });
 }
-
 async function fileToBase64(file){
   return new Promise((res,rej)=>{
-    const r=new FileReader();
-    r.onload=()=>res(r.result.split(',')[1]);
-    r.onerror=rej;
-    r.readAsDataURL(file);
+    const r=new FileReader();r.onload=()=>res(r.result.split(',')[1]);r.onerror=rej;r.readAsDataURL(file);
   });
 }
 
 async function analyzeViolation(){
-  const apiKey=localStorage.getItem(KEY_STORAGE);
-  if(!apiKey){alert('Vui lòng nhập API Key trước!');return}
   if(!selectedLuat){alert('Vui lòng chọn bộ luật!');return}
   const moTa=document.getElementById('moTa').value.trim();
   if(!moTa&&uploadedFiles.length===0){alert('Vui lòng mô tả hoặc upload bằng chứng!');return}
@@ -382,67 +311,48 @@ KẾT QUẢ: [CÓ PHẠM LUẬT / KHÔNG PHẠM LUẬT / CẦN THÊM BẰNG CH�
 ĐIỀU KHOẢN VI PHẠM: [nếu có]
 H�NH THỨC XỬ LÝ: [theo luật]`;
 
-    const userText = moTa
-      ? `Tình huống tố cáo: "${moTa}"\n\nHãy phân tích xem có vi phạm bộ luật không?`
-      : 'Hãy xem bằng chứng ảnh và phân tích xem có vi phạm bộ luật không?';
+    const userText=moTa?`Tình huống tố cáo: "${moTa}"\n\nHãy phân tích xem có vi phạm bộ luật không?`:'Hãy xem bằng chứng ảnh và phân tích xem có vi phạm bộ luật không?';
 
-    // Build Gemini parts array
-    const parts = [];
-
-    // Add images
+    const parts=[];
     for(const imgFile of uploadedFiles.slice(0,4)){
-      const b64 = await fileToBase64(imgFile);
-      parts.push({ inlineData:{ mimeType: imgFile.type, data: b64 } });
+      const b64=await fileToBase64(imgFile);
+      parts.push({inlineData:{mimeType:imgFile.type,data:b64}});
     }
+    parts.push({text:systemPrompt+'\n\n'+userText});
 
-    // Add text (system + user combined for Gemini)
-    parts.push({ text: systemPrompt + '\n\n' + userText });
-
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-    const response = await fetch(url, {
+    const response=await fetch('/api/analyze',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        contents:[{ role:'user', parts }],
-        generationConfig:{ maxOutputTokens:1500, temperature:0.3 }
-      })
+      body:JSON.stringify({parts})
     });
-
-    const data = await response.json();
-
-    if(data.error) throw new Error(data.error.message||JSON.stringify(data.error));
-
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text||'';
+    const data=await response.json();
+    if(data.error) throw new Error(data.error);
+    const text=data.text||'';
     if(!text) throw new Error('Không nhận được phản hồi từ AI');
 
-    // Fill panels
     document.getElementById('luatPanelBody').textContent=RULES[selectedLuat].trim();
     let cauhoiText=`Bộ luật: ${LUAT_NAMES[selectedLuat]}\n`;
     if(moTa) cauhoiText+=`\nMô tả:\n"${moTa}"`;
     if(uploadedFiles.length>0) cauhoiText+=`\n\nĐã gửi ${uploadedFiles.length} ảnh bằng chứng`;
     document.getElementById('cauhoiPanelBody').textContent=cauhoiText;
 
-    // Verdict
-    let cls='unclear',icon='🟡',label='Phán quyết của trọng tài',title='⚠️ Cần Thêm Bằng Chứng';
+    let cls='unclear',icon='🟡',title='⚠️ Cần Thêm Bằng Chứng';
     const upper=text.toUpperCase();
-    if(upper.includes('CÓ PHẠM LUẬT')||(upper.includes('VI PHẠM')&&!upper.includes('KHÔNG VI PHẠM'))){
-      cls='violation';icon='🔴';title='⛔ CÓ PHẠM LUẬT';
-    } else if(upper.includes('KHÔNG PHẠM LUẬT')||upper.includes('KHÔNG VI PHẠM')){
-      cls='ok';icon='🟢';title='✅ KHÔNG PHẠM LUẬT';
-    }
+    if(upper.includes('CÓ PHẠM LUẬT')||(upper.includes('VI PHẠM')&&!upper.includes('KHÔNG VI PHẠM'))){cls='violation';icon='🔴';title='⛔ CÓ PHẠM LUẬT';}
+    else if(upper.includes('KHÔNG PHẠM LUẬT')||upper.includes('KHÔNG VI PHẠM')){cls='ok';icon='🟢';title='✅ KHÔNG PHẠM LUẬT';}
 
     document.getElementById('resultBox').className=`result-box show ${cls}`;
     document.getElementById('verdictIcon').textContent=icon;
-    document.getElementById('verdictLabel').textContent=label;
+    document.getElementById('verdictLabel').textContent='Phán quyết của trọng tài';
     document.getElementById('verdictText').textContent=title;
     document.getElementById('resultContent').textContent=text;
 
-  } catch(err){
+  }catch(err){
     document.getElementById('resultBox').className='result-box show error';
     document.getElementById('verdictIcon').textContent='❌';
     document.getElementById('verdictLabel').textContent='LỖI';
     document.getElementById('verdictText').textContent='Không thể kết nối AI';
-    document.getElementById('resultContent').textContent='Chi tiết lỗi:\n'+err.message+'\n\nKiểm tra lại API Key và thử lại.';
+    document.getElementById('resultContent').textContent='Chi tiết lỗi:\n'+err.message;
   }
 
   document.getElementById('loadingWrap').classList.remove('show');
@@ -460,9 +370,6 @@ function resetForm(){
   document.getElementById('analyzeBtn').disabled=true;
   window.scrollTo({top:0,behavior:'smooth'});
 }
-
-loadApiKey();
-checkReady();
 </script>
 </body>
 </html>
