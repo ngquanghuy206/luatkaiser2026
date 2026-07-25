@@ -320,7 +320,7 @@ H�NH THỨC XỬ LÝ: [theo luật]`;
     }
     parts.push({text:systemPrompt+'\n\n'+userText});
 
-    const response=await fetch('/api/analyze',{
+    const response=await fetch('https://luat-kaiser-api.onrender.com/api/analyze',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({parts})
