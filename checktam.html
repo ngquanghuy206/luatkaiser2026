@@ -8,27 +8,19 @@
 </head>
 <body>
 
-<!-- SVG DEFS -->
+<div class="orb-wrap">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+</div>
+
 <svg width="0" height="0" style="position:absolute">
   <defs>
-    <linearGradient id="gg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f5c842"/><stop offset="50%" stop-color="#ffffff"/><stop offset="100%" stop-color="#00d4ff"/>
-    </linearGradient>
-    <linearGradient id="gc" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#00d4ff"/><stop offset="100%" stop-color="#7ffbff"/>
-    </linearGradient>
-    <linearGradient id="ggold" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f5c842"/><stop offset="100%" stop-color="#c8902a"/>
-    </linearGradient>
-    <linearGradient id="gr" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ff4d4d"/><stop offset="100%" stop-color="#ff9090"/>
-    </linearGradient>
-    <linearGradient id="ggreen" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#3dcc6e"/><stop offset="100%" stop-color="#a0f0b0"/>
-    </linearGradient>
-    <linearGradient id="gpur" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#a855f7"/><stop offset="100%" stop-color="#d8b4fe"/>
-    </linearGradient>
+    <linearGradient id="ggold" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f5c842"/><stop offset="100%" stop-color="#c8902a"/></linearGradient>
+    <linearGradient id="gc"    x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00d4ff"/><stop offset="100%" stop-color="#7ffbff"/></linearGradient>
+    <linearGradient id="ggreen"x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#3dcc6e"/><stop offset="100%" stop-color="#a0f0b0"/></linearGradient>
+    <linearGradient id="gpur"  x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#a855f7"/><stop offset="100%" stop-color="#d8b4fe"/></linearGradient>
+    <linearGradient id="gr"    x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff4d4d"/><stop offset="100%" stop-color="#ff9090"/></linearGradient>
   </defs>
 </svg>
 
@@ -61,49 +53,121 @@
   </div>
 </div>
 
-<!-- STICKY NAV -->
+<!-- NAV -->
 <nav class="topnav">
-  <a href="index.html" class="tgold">← Trang Chủ</a>
-  <a href="solo.html" class="tgold">
+  <a href="index.html">← Trang Chủ</a>
+  <a href="solo.html" class="active-gold">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3l2 6h6l-5 4 2 6-5-4-5 4 2-6-5-4h6z" fill="url(#ggold)"/></svg>
     Solo FF
   </a>
-  <a href="kaiser.html" class="tcyan">
+  <a href="kaiser.html" class="active-cyan">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 4v5c0 4-3 7-7 9-4-2-7-5-7-9V7z" fill="url(#gc)"/></svg>
-    Kaiser 22 33 44
+    Kaiser
+  </a>
+  <a href="checktam.html" class="active-green">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="url(#ggreen)" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="url(#ggreen)"/><line x1="12" y1="3" x2="12" y2="6" stroke="url(#ggreen)" stroke-width="2"/><line x1="12" y1="18" x2="12" y2="21" stroke="url(#ggreen)" stroke-width="2"/><line x1="3" y1="12" x2="6" y2="12" stroke="url(#ggreen)" stroke-width="2"/><line x1="18" y1="12" x2="21" y2="12" stroke="url(#ggreen)" stroke-width="2"/></svg>
+    Check Tâm
   </a>
 </nav>
 
-<!-- ═══ CHECK TÂM ═══ -->
-<div id="checktam" class="shared-check">
+<!-- CONTENT -->
+<div class="shared-check">
   <div class="shared-check-header">
     <div class="shared-label">LUẬT CHECK TÂM</div>
     <div class="shared-badge">Solo &amp; Kaiser — Áp dụng chung</div>
   </div>
 
   <div class="rule-grid">
+
     <div class="rule-card open">
       <div class="rule-card-header" onclick="toggle(this)">
-        <span class="rule-num">R8</span>
-        <span class="rule-title">Quy Định Check Tâm (nếu giao kèo trước)</span>
+        <span class="rule-num">CT·01</span>
+        <span class="rule-title">Dụng Cụ & Tư Thế Check</span>
         <svg class="rule-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="url(#ggreen)" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="url(#ggreen)" stroke-width="1.5"/><circle cx="12" cy="12" r="1.5" fill="url(#ggreen)"/><line x1="12" y1="3" x2="12" y2="7" stroke="url(#ggreen)" stroke-width="1.8"/><line x1="12" y1="17" x2="12" y2="21" stroke="url(#ggreen)" stroke-width="1.8"/><line x1="3" y1="12" x2="7" y2="12" stroke="url(#ggreen)" stroke-width="1.8"/><line x1="17" y1="12" x2="21" y2="12" stroke="url(#ggreen)" stroke-width="1.8"/></svg>
         <span class="arrow">▼</span>
       </div>
       <div class="rule-body">
-        <div class="item-box info"><span class="item-dot dot-info"></span><span>Bật điều khiển <strong>"Tất cả"</strong>, check bằng <strong>UMP hoặc MP5</strong>.</span></div>
-        <div class="item-box info"><span class="item-dot dot-info"></span><span><strong>Vị trí check:</strong> cổ · ngực · vai · bụng · đỉnh đầu (không quá cao) · xung quanh cơ thể · khe chân qua gối.<br><span style="background:linear-gradient(90deg,#ff4d4d,#ff9090);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-size:12px;font-weight:700">Check thiếu vị trí → Trừ phí bên check.</span></span></div>
-        <div class="item-box"><span class="item-dot dot-neutral"></span><span>Đứng check, quay rõ màn hình. Quay trúng IC → Trừ phí.</span></div>
-        <div class="item-box"><span class="item-dot dot-neutral"></span><span>Bắt đầu quay từ khi tâm hiển thị vòng đỏ hoặc sau <strong>10 giây</strong> cho đến khi check xong.</span></div>
-        <div class="item-box warn"><span class="item-dot dot-warn"></span><span>Phải ra giữa map <em>mới</em> bắt đầu bấm quay. Quay trước khi ra giữa → Trừ phí.</span></div>
-        <div class="item-box ok"><span class="item-dot dot-ok"></span><span>Check sai được check lại <strong>1 lần</strong> ngay sau đó. Video quay liền mạch — ngắt tối đa <strong>2 video</strong>, cách nhau không quá <strong>10 giây</strong>.</span></div>
-        <div class="item-box warn"><span class="item-dot dot-warn"></span><span>
-          <strong>Trường hợp miễn check:</strong><br>
-          • Bên thua AFK, giả AFK, hoặc cố tình phá không cho check.<br>
-          • Bên thua cố thủ trong nhà, không ra khu vực giữa map → Tính là AFK.<br>
-          • Trận 2v2 mà 1 người AFK → chỉ cần 1 màn hình check.
-        </span></div>
+        <div class="item-box info">
+          <span class="item-dot dot-info"></span>
+          <span>Bật điều khiển <strong>"Tất cả"</strong>, check bằng <strong>UMP hoặc MP5</strong>.</span>
+        </div>
+        <div class="item-box ok">
+          <span class="item-dot dot-ok"></span>
+          <span>Đứng check, quay rõ màn hình. Quay trúng IC → <strong class="gt-red">Trừ phí</strong>.</span>
+        </div>
+        <div class="item-box">
+          <span class="item-dot dot-neutral"></span>
+          <span>Bắt đầu quay từ khi tâm hiển thị vòng đỏ hoặc sau <strong>10 giây</strong> cho đến khi check xong.</span>
+        </div>
+        <div class="item-box warn">
+          <span class="item-dot dot-warn"></span>
+          <span>Phải ra giữa map <em>mới</em> bắt đầu bấm quay. Quay trước khi ra giữa → <strong>Trừ phí</strong>.</span>
+        </div>
       </div>
     </div>
+
+    <div class="rule-card">
+      <div class="rule-card-header" onclick="toggle(this)">
+        <span class="rule-num">CT·02</span>
+        <span class="rule-title">Vị Trí Check Bắt Buộc</span>
+        <svg class="rule-icon" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z" fill="url(#ggreen)"/><circle cx="12" cy="9" r="2.5" fill="#05070b"/></svg>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="rule-body">
+        <div class="highlight info">Check đủ tất cả các vị trí sau. Thiếu vị trí nào → <strong>Trừ phí bên check</strong>.</div>
+        <div class="item-box ok"><span class="item-dot dot-ok"></span><span>Cổ</span></div>
+        <div class="item-box ok"><span class="item-dot dot-ok"></span><span>Ngực</span></div>
+        <div class="item-box ok"><span class="item-dot dot-ok"></span><span>Vai</span></div>
+        <div class="item-box ok"><span class="item-dot dot-ok"></span><span>Bụng</span></div>
+        <div class="item-box ok"><span class="item-dot dot-ok"></span><span>Đỉnh đầu (không quá cao)</span></div>
+        <div class="item-box ok"><span class="item-dot dot-ok"></span><span>Xung quanh cơ thể</span></div>
+        <div class="item-box ok"><span class="item-dot dot-ok"></span><span>Khe chân qua gối</span></div>
+      </div>
+    </div>
+
+    <div class="rule-card">
+      <div class="rule-card-header" onclick="toggle(this)">
+        <span class="rule-num">CT·03</span>
+        <span class="rule-title">Sai & Quay Video</span>
+        <svg class="rule-icon" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="3" stroke="url(#gc)" stroke-width="2"/><path d="M10 9l5 3-5 3V9z" fill="url(#gc)"/></svg>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="rule-body">
+        <div class="item-box ok">
+          <span class="item-dot dot-ok"></span>
+          <span><span class="ok-tag">ĐƯỢC PHÉP</span>Check sai được check lại <strong>1 lần</strong> ngay sau đó.</span>
+        </div>
+        <div class="item-box info">
+          <span class="item-dot dot-info"></span>
+          <span>Video quay liền mạch — ngắt tối đa <strong>2 video</strong>, cách nhau không quá <strong>10 giây</strong>.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="rule-card">
+      <div class="rule-card-header" onclick="toggle(this)">
+        <span class="rule-num">CT·04</span>
+        <span class="rule-title">Trường Hợp Miễn Check</span>
+        <svg class="rule-icon" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 4v5c0 4-3 7-7 9-4-2-7-5-7-9V7z" fill="url(#ggold)"/><path d="M9 12l2 2 4-4" stroke="#05070b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="rule-body">
+        <div class="highlight gold">Các trường hợp sau thì bên thắng <strong>không cần check tâm</strong>.</div>
+        <div class="item-box gold">
+          <span class="item-dot dot-gold"></span>
+          <span>Bên thua <strong>AFK</strong>, giả AFK, hoặc cố tình phá không cho check.</span>
+        </div>
+        <div class="item-box gold">
+          <span class="item-dot dot-gold"></span>
+          <span>Bên thua cố thủ trong nhà, không ra khu vực giữa map → Tính là <strong>AFK</strong>.</span>
+        </div>
+        <div class="item-box gold">
+          <span class="item-dot dot-gold"></span>
+          <span>Trận <strong>2v2</strong> mà 1 người AFK → chỉ cần <strong>1 màn hình check</strong>.</span>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 

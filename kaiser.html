@@ -8,27 +8,19 @@
 </head>
 <body>
 
-<!-- SVG DEFS -->
+<div class="orb-wrap">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+</div>
+
 <svg width="0" height="0" style="position:absolute">
   <defs>
-    <linearGradient id="gg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f5c842"/><stop offset="50%" stop-color="#ffffff"/><stop offset="100%" stop-color="#00d4ff"/>
-    </linearGradient>
-    <linearGradient id="gc" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#00d4ff"/><stop offset="100%" stop-color="#7ffbff"/>
-    </linearGradient>
-    <linearGradient id="ggold" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f5c842"/><stop offset="100%" stop-color="#c8902a"/>
-    </linearGradient>
-    <linearGradient id="gr" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ff4d4d"/><stop offset="100%" stop-color="#ff9090"/>
-    </linearGradient>
-    <linearGradient id="ggreen" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#3dcc6e"/><stop offset="100%" stop-color="#a0f0b0"/>
-    </linearGradient>
-    <linearGradient id="gpur" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#a855f7"/><stop offset="100%" stop-color="#d8b4fe"/>
-    </linearGradient>
+    <linearGradient id="ggold" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f5c842"/><stop offset="100%" stop-color="#c8902a"/></linearGradient>
+    <linearGradient id="gc"    x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00d4ff"/><stop offset="100%" stop-color="#7ffbff"/></linearGradient>
+    <linearGradient id="ggreen"x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#3dcc6e"/><stop offset="100%" stop-color="#a0f0b0"/></linearGradient>
+    <linearGradient id="gpur"  x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#a855f7"/><stop offset="100%" stop-color="#d8b4fe"/></linearGradient>
+    <linearGradient id="gr"    x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff4d4d"/><stop offset="100%" stop-color="#ff9090"/></linearGradient>
   </defs>
 </svg>
 
@@ -61,30 +53,33 @@
   </div>
 </div>
 
-<!-- STICKY NAV -->
+<!-- NAV -->
 <nav class="topnav">
-  <a href="index.html" class="tgold">← Trang Chủ</a>
-  <a href="solo.html" class="tgold">
+  <a href="index.html">← Trang Chủ</a>
+  <a href="solo.html" class="active-gold">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3l2 6h6l-5 4 2 6-5-4-5 4 2-6-5-4h6z" fill="url(#ggold)"/></svg>
     Solo FF
   </a>
-  <a href="checktam.html" class="tgreen">
+  <a href="kaiser.html" class="active-cyan">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 4v5c0 4-3 7-7 9-4-2-7-5-7-9V7z" fill="url(#gc)"/></svg>
+    Kaiser
+  </a>
+  <a href="checktam.html" class="active-green">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="url(#ggreen)" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="url(#ggreen)"/><line x1="12" y1="3" x2="12" y2="6" stroke="url(#ggreen)" stroke-width="2"/><line x1="12" y1="18" x2="12" y2="21" stroke="url(#ggreen)" stroke-width="2"/><line x1="3" y1="12" x2="6" y2="12" stroke="url(#ggreen)" stroke-width="2"/><line x1="18" y1="12" x2="21" y2="12" stroke="url(#ggreen)" stroke-width="2"/></svg>
     Check Tâm
   </a>
 </nav>
 
-<!-- ═══ KAISER ═══ -->
-<div id="kaiser" class="section">
+<!-- CONTENT -->
+<div class="section">
   <div class="section-header">
-    <div class="section-tag gt-cyan">KAISER 22 33 44</div>
+    <div class="section-tag agt-cyan">KAISER 22 33 44</div>
     <div class="section-line cyan"></div>
     <div class="section-mode cyan">Team</div>
   </div>
 
   <div class="rule-grid">
 
-    <!-- 01 Clip -->
     <div class="rule-card open">
       <div class="rule-card-header" onclick="toggle(this)">
         <span class="rule-num">01</span>
@@ -93,13 +88,21 @@
         <span class="arrow">▼</span>
       </div>
       <div class="rule-body">
-        <div class="item-box info"><span class="item-dot dot-info"></span><span><span class="note-tag">BẮT BUỘC</span>Tất cả thành viên lưu clip (1 máy / 1 FF, trừ AFK). Quay đủ kill. <strong>Không xử clip 99%</strong>.</span></div>
-        <div class="item-box warn"><span class="item-dot dot-warn"></span><span><span class="ban-tag">NGHIÊM CẤM</span>Hack, vật phẩm bổ trợ, gài luật vô lý.</span></div>
-        <div class="item-box warn"><span class="item-dot dot-warn"></span><span><span class="ban-tag">CẤM</span>Ra thư — tự động thua nếu trước đó không giao kèo.</span></div>
+        <div class="item-box info">
+          <span class="item-dot dot-info"></span>
+          <span><span class="note-tag">BẮT BUỘC</span>Tất cả thành viên lưu clip (1 máy / 1 FF, trừ AFK). Quay đủ kill. <strong>Không xử clip 99%</strong>.</span>
+        </div>
+        <div class="item-box warn">
+          <span class="item-dot dot-warn"></span>
+          <span><span class="ban-tag">NGHIÊM CẤM</span>Hack, vật phẩm bổ trợ, gài luật vô lý.</span>
+        </div>
+        <div class="item-box warn">
+          <span class="item-dot dot-warn"></span>
+          <span><span class="ban-tag">CẤM</span>Ra thư — tự động thua nếu trước đó không giao kèo.</span>
+        </div>
       </div>
     </div>
 
-    <!-- 02 Vũ khí -->
     <div class="rule-card">
       <div class="rule-card-header" onclick="toggle(this)">
         <span class="rule-num">02</span>
@@ -108,28 +111,39 @@
         <span class="arrow">▼</span>
       </div>
       <div class="rule-body">
-        <div class="item-box"><span class="item-dot dot-neutral"></span><span><strong>Ván 1:</strong> Mặc định chỉ dùng <strong>DE</strong>.</span></div>
-        <div class="item-box warn"><span class="item-dot dot-warn"></span><span><span class="ban-tag">CẤM</span>Toàn bộ súng lục từ ván 2 trở đi.</span></div>
-        <div class="item-box info"><span class="item-dot dot-info"></span><span>
-          <span class="cyan-tag">SÚNG CHÍNH</span>Không nâng chip. Được dùng:
-          <div class="weapon-grid">
-            <span class="weapon-chip de">USP 2</span>
-            <span class="weapon-chip de">DE</span>
-            <span class="weapon-chip">MP40</span>
-            <span class="weapon-chip">UMP</span>
-            <span class="weapon-chip">M1014</span>
-            <span class="weapon-chip">M1887</span>
-          </div>
-        </span></div>
-        <div class="item-box gold"><span class="item-dot dot-gold"></span><span>
-          <strong>Cap USP Round 1:</strong><br>
-          • Có giao kèo check tâm → Cap đến hết <strong>Round 7</strong><br>
-          • Không check tâm → Cap đến hết <strong>Round 6</strong>
-        </span></div>
+        <div class="item-box">
+          <span class="item-dot dot-neutral"></span>
+          <span><strong>Ván 1:</strong> Mặc định chỉ dùng <strong>DE</strong>.</span>
+        </div>
+        <div class="item-box warn">
+          <span class="item-dot dot-warn"></span>
+          <span><span class="ban-tag">CẤM</span>Toàn bộ súng lục từ ván 2 trở đi.</span>
+        </div>
+        <div class="item-box info">
+          <span class="item-dot dot-info"></span>
+          <span>
+            <span class="cyan-tag">SÚNG CHÍNH</span>Không nâng chip. Được dùng:
+            <div class="weapon-grid">
+              <span class="weapon-chip de">USP 2</span>
+              <span class="weapon-chip de">DE</span>
+              <span class="weapon-chip">MP40</span>
+              <span class="weapon-chip">UMP</span>
+              <span class="weapon-chip">M1014</span>
+              <span class="weapon-chip">M1887</span>
+            </div>
+          </span>
+        </div>
+        <div class="item-box gold">
+          <span class="item-dot dot-gold"></span>
+          <span>
+            <strong>Cap USP Round 1:</strong><br>
+            • Có giao kèo check tâm → Cap đến hết <strong>Round 7</strong><br>
+            • Không check tâm → Cap đến hết <strong>Round 6</strong>
+          </span>
+        </div>
       </div>
     </div>
 
-    <!-- 03 Nhân vật -->
     <div class="rule-card">
       <div class="rule-card-header" onclick="toggle(this)">
         <span class="rule-num">03</span>
@@ -138,37 +152,56 @@
         <span class="arrow">▼</span>
       </div>
       <div class="rule-body">
-        <div class="item-box info"><span class="item-dot dot-info"></span><span>
-          <span class="note-tag">NHÂN VẬT</span>Chỉ được chọn:
-          <div class="char-row">
-            <span class="char-chip">Kelly</span>
-            <span class="char-chip">Caroline</span>
-            <span class="char-chip">Alok</span>
-            <span class="char-chip">Hayato</span>
-          </div>
-        </span></div>
-        <div class="item-box warn"><span class="item-dot dot-warn"></span><span>Vi phạm chưa giao tranh → <strong>Out ngay ván 1</strong> → Thành phần bắn lại.</span></div>
-        <div class="item-box info"><span class="item-dot dot-info"></span><span><span class="cyan-tag">PET</span>Chỉ dùng: <strong>Đại Bàng · Robo · Rockie</strong> (thêm pet khác khi không sở hữu các pet này).</span></div>
+        <div class="item-box info">
+          <span class="item-dot dot-info"></span>
+          <span>
+            <span class="note-tag">NHÂN VẬT</span>Chỉ được chọn:
+            <div class="char-row">
+              <span class="char-chip">Kelly</span>
+              <span class="char-chip">Caroline</span>
+              <span class="char-chip">Alok</span>
+              <span class="char-chip">Hayato</span>
+            </div>
+          </span>
+        </div>
+        <div class="item-box warn">
+          <span class="item-dot dot-warn"></span>
+          <span>Vi phạm chưa giao tranh → <strong>Out ngay ván 1</strong> → Thành phần bắn lại.</span>
+        </div>
+        <div class="item-box info">
+          <span class="item-dot dot-info"></span>
+          <span><span class="cyan-tag">PET</span>Chỉ dùng: <strong>Đại Bàng · Robo · Rockie</strong> (thêm pet khác khi không sở hữu các pet này).</span>
+        </div>
       </div>
     </div>
 
-    <!-- 04 Vị trí -->
     <div class="rule-card">
       <div class="rule-card-header" onclick="toggle(this)">
         <span class="rule-num">04</span>
         <span class="rule-title">Vị Trí & Di Chuyển</span>
-        <svg class="rule-icon" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z" fill="url(#ggold)"/><circle cx="12" cy="9" r="2.5" fill="#0a0c10"/></svg>
+        <svg class="rule-icon" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z" fill="url(#ggold)"/><circle cx="12" cy="9" r="2.5" fill="#05070b"/></svg>
         <span class="arrow">▼</span>
       </div>
       <div class="rule-body">
-        <div class="item-box warn"><span class="item-dot dot-warn"></span><span><span class="ban-tag">CẤM</span>Lên lầu, nóc nhà, đỉnh đồi, vị trí quá cao.</span></div>
-        <div class="item-box ok"><span class="item-dot dot-ok"></span><span><span class="ok-tag">ĐƯỢC PHÉP</span>Lên thùng công 1 (cấm thùng 2, 3 phía trên).</span></div>
-        <div class="item-box ok"><span class="item-dot dot-ok"></span><span><span class="ok-tag">NHÀ MÁY ĐIỆN</span>Được lên mái hiên, lên xe (dính bánh xe nhảy xuống ngay không bắn thì không sao).</span></div>
-        <div class="item-box ok"><span class="item-dot dot-ok"></span><span><span class="ok-tag">TỤ ĐIỂM HẸN</span>Nóc nhà nhỏ đứng trên không bắn thì không sao.</span></div>
+        <div class="item-box warn">
+          <span class="item-dot dot-warn"></span>
+          <span><span class="ban-tag">CẤM</span>Lên lầu, nóc nhà, đỉnh đồi, vị trí quá cao.</span>
+        </div>
+        <div class="item-box ok">
+          <span class="item-dot dot-ok"></span>
+          <span><span class="ok-tag">ĐƯỢC PHÉP</span>Lên thùng công 1 (cấm thùng 2, 3 phía trên).</span>
+        </div>
+        <div class="item-box ok">
+          <span class="item-dot dot-ok"></span>
+          <span><span class="ok-tag">NHÀ MÁY ĐIỆN</span>Được lên mái hiên, lên xe (dính bánh xe nhảy xuống ngay không bắn thì không sao).</span>
+        </div>
+        <div class="item-box ok">
+          <span class="item-dot dot-ok"></span>
+          <span><span class="ok-tag">TỤ ĐIỂM HẸN</span>Nóc nhà nhỏ đứng trên không bắn thì không sao.</span>
+        </div>
       </div>
     </div>
 
-    <!-- 05 Sự cố -->
     <div class="rule-card">
       <div class="rule-card-header" onclick="toggle(this)">
         <span class="rule-num">05</span>
@@ -177,10 +210,22 @@
         <span class="arrow">▼</span>
       </div>
       <div class="rule-body">
-        <div class="item-box"><span class="item-dot dot-neutral"></span><span><strong>Văng Round 1:</strong> Bắn lại toàn bộ.</span></div>
-        <div class="item-box"><span class="item-dot dot-neutral"></span><span><strong>Văng từ Round 2:</strong> Bắn bình thường. Nếu bên văng thắng mà không cap/check được → Trừ phí bên thua.</span></div>
-        <div class="item-box warn"><span class="item-dot dot-warn"></span><span><strong>Mạng lag 999+:</strong> Đang hòa hoặc dẫn tỉ số thì được bắn lại (phải quay màn hình có hiển thị <em>"Đang kết nối..."</em>).</span></div>
-        <div class="item-box warn"><span class="item-dot dot-warn"></span><span><span class="ban-tag">CẤM</span>Tự bug keo hoặc bug cho đồng đội vào góc lag mà bên kia không thể bắn tới.</span></div>
+        <div class="item-box">
+          <span class="item-dot dot-neutral"></span>
+          <span><strong>Văng Round 1:</strong> Bắn lại toàn bộ.</span>
+        </div>
+        <div class="item-box">
+          <span class="item-dot dot-neutral"></span>
+          <span><strong>Văng từ Round 2:</strong> Bắn bình thường. Nếu bên văng thắng mà không cap/check được → Trừ phí bên thua.</span>
+        </div>
+        <div class="item-box warn">
+          <span class="item-dot dot-warn"></span>
+          <span><strong>Mạng lag 999+:</strong> Đang hòa hoặc dẫn tỉ số thì được bắn lại (phải quay màn hình có hiển thị <em>"Đang kết nối..."</em>).</span>
+        </div>
+        <div class="item-box warn">
+          <span class="item-dot dot-warn"></span>
+          <span><span class="ban-tag">CẤM</span>Tự bug keo hoặc bug cho đồng đội vào góc lag mà bên kia không thể bắn tới.</span>
+        </div>
       </div>
     </div>
 
