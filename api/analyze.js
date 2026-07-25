@@ -6,11 +6,11 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) return res.status(500).json({ error: 'Chưa cấu hình API key trên server' });
+  if (!apiKey) return res.status(500).json({ error: 'Chua cau hinh API key tren server' });
 
   try {
     const { parts } = req.body;
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
+    const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash-001:generateContent?key=${apiKey}`;
     
     const response = await fetch(url, {
       method: 'POST',
