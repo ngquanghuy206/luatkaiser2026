@@ -3,11 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<!-- SEO & Share Preview -->
+<meta name="description" content="Bộ luật Kaiser FF chính thức – Kaiser 1-1, Kaiser Team, Check Tâm, Tố Phạm Luật AI. Soạn bởi Nguyễn Hoàng Khánh Nam.">
+
+<!-- Open Graph (Facebook, Zalo, Telegram) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://luatkaiser2026.vercel.app">
+<meta property="og:title" content="⚖️ Luật Kaiser FF – Chính Thức">
+<meta property="og:description" content="Bộ luật Kaiser Free Fire chính thức: Kaiser 1-1 · Kaiser Team · Check Tâm · Tố Phạm Luật AI. Soạn bởi Nguyễn Hoàng Khánh Nam.">
+<meta property="og:image" content="https://luatkaiser2026.vercel.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:site_name" content="Luật Kaiser FF">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="⚖️ Luật Kaiser FF – Chính Thức">
+<meta name="twitter:description" content="Bộ luật Kaiser Free Fire chính thức. Soạn bởi Nguyễn Hoàng Khánh Nam.">
+<meta name="twitter:image" content="https://luatkaiser2026.vercel.app/og-image.png">
 <title>Luật Kaiser FF – Nguyễn Hoàng Khánh Nam</title>
 <link rel="stylesheet" href="style.css">
 <style>
   html,body{overflow-x:hidden;max-width:100vw}
 </style>
+<link rel="icon" type="image/jpeg" href="https://i.imgur.com/a69G9nM.jpeg">
 </head>
 <body>
 
@@ -143,6 +164,181 @@
     </a>
   </div>
 </section>
+
+
+<script>
+function playBubblePop(){
+  try{
+    const ctx = new (window.AudioContext||window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(600, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(200, ctx.currentTime + 0.08);
+    gain.gain.setValueAtTime(0.3, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.08);
+  }catch(e){}
+}
+document.addEventListener('click', function(e){
+  const el = e.target.closest('a, button, .luat-btn, .choose-btn, .context-panel-header, .btn-analyze, .btn-reset, .hero-cta');
+  if(el) playBubblePop();
+}, true);
+</script>
+
+<style>
+.music-btn{
+  position:fixed;top:10px;left:10px;z-index:999;
+  width:36px;height:36px;border-radius:10px;
+  background:rgba(13,17,23,.85);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.1);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all .2s;
+  box-shadow:0 2px 12px rgba(0,0,0,.3);
+}
+.music-btn:hover{border-color:rgba(0,212,255,.4);background:rgba(0,212,255,.08)}
+.music-btn svg{transition:opacity .2s}
+</style>
+
+<button class="music-btn" id="musicBtn" onclick="toggleMusic()" title="Nhạc nền">
+  <svg id="iconOn" width="18" height="18" viewBox="0 0 24 24" fill="none">
+    <path d="M9 18V5l12-2v13" stroke="#00d4ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="6" cy="18" r="3" stroke="#00d4ff" stroke-width="1.8"/>
+    <circle cx="18" cy="16" r="3" stroke="#00d4ff" stroke-width="1.8"/>
+  </svg>
+  <svg id="iconOff" width="18" height="18" viewBox="0 0 24 24" fill="none" style="display:none">
+    <path d="M9 18V5l12-2v13" stroke="#6b7a8d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="6" cy="18" r="3" stroke="#6b7a8d" stroke-width="1.8"/>
+    <circle cx="18" cy="16" r="3" stroke="#6b7a8d" stroke-width="1.8"/>
+    <line x1="3" y1="3" x2="21" y2="21" stroke="#6b7a8d" stroke-width="1.8" stroke-linecap="round"/>
+  </svg>
+</button>
+
+<script>
+let musicCtx = null, playing = false;
+let masterGain, nodes = [];
+
+function initMusic(){
+  if(musicCtx) return;
+  musicCtx = new (window.AudioContext||window.webkitAudioContext)();
+  masterGain = musicCtx.createGain();
+  masterGain.gain.setValueAtTime(0, musicCtx.currentTime);
+  masterGain.connect(musicCtx.destination);
+}
+
+function createDrone(freq, vol){
+  const osc = musicCtx.createOscillator();
+  const g = musicCtx.createGain();
+  const filter = musicCtx.createBiquadFilter();
+  filter.type = 'lowpass';
+  filter.frequency.value = 800;
+  osc.type = 'sine';
+  osc.frequency.value = freq;
+  g.gain.value = vol;
+  osc.connect(filter);
+  filter.connect(g);
+  g.connect(masterGain);
+  osc.start();
+  nodes.push(osc, g, filter);
+  return osc;
+}
+
+function createPad(freq){
+  const osc = musicCtx.createOscillator();
+  const osc2 = musicCtx.createOscillator();
+  const g = musicCtx.createGain();
+  const filter = musicCtx.createBiquadFilter();
+  filter.type = 'bandpass';
+  filter.frequency.value = freq * 2;
+  filter.Q.value = 0.5;
+  osc.type = 'triangle';
+  osc2.type = 'sawtooth';
+  osc.frequency.value = freq;
+  osc2.frequency.value = freq * 1.003;
+  g.gain.value = 0.04;
+  osc.connect(filter); osc2.connect(filter);
+  filter.connect(g); g.connect(masterGain);
+  osc.start(); osc2.start();
+  nodes.push(osc, osc2, g, filter);
+}
+
+// Melody notes - FF style pentatonic
+const NOTES = [220, 261.6, 293.7, 349.2, 392, 440, 523.2, 587.3];
+let melodyIdx = 0, melodyTimer = null;
+
+function playMelodyNote(){
+  if(!playing) return;
+  const freq = NOTES[melodyIdx % NOTES.length];
+  const osc = musicCtx.createOscillator();
+  const g = musicCtx.createGain();
+  const t = musicCtx.currentTime;
+  osc.type = 'sine';
+  osc.frequency.value = freq;
+  g.gain.setValueAtTime(0, t);
+  g.gain.linearRampToValueAtTime(0.06, t + 0.05);
+  g.gain.exponentialRampToValueAtTime(0.001, t + 0.8);
+  osc.connect(g); g.connect(masterGain);
+  osc.start(t); osc.stop(t + 0.8);
+  // Pattern: 0,2,4,7,4,2,0,4...
+  const pattern = [0,2,4,7,4,2,0,4,2,7,4,0,2,4,7,2];
+  melodyIdx++;
+  const delay = [800,600,1000,600,800,1000,600,800][melodyIdx%8];
+  melodyTimer = setTimeout(playMelodyNote, delay);
+}
+
+// Pulse/beat
+function startPulse(){
+  if(!playing) return;
+  const osc = musicCtx.createOscillator();
+  const g = musicCtx.createGain();
+  const t = musicCtx.currentTime;
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(80, t);
+  osc.frequency.exponentialRampToValueAtTime(40, t + 0.1);
+  g.gain.setValueAtTime(0.15, t);
+  g.gain.exponentialRampToValueAtTime(0.001, t + 0.15);
+  osc.connect(g); g.connect(masterGain);
+  osc.start(t); osc.stop(t + 0.15);
+  setTimeout(startPulse, 600);
+}
+
+function startMusic(){
+  initMusic();
+  // Drone layers
+  createDrone(55, 0.06);
+  createDrone(110, 0.04);
+  createDrone(82.4, 0.03);
+  // Pads
+  createPad(220); createPad(293.7); createPad(349.2);
+  // Fade in
+  masterGain.gain.linearRampToValueAtTime(1, musicCtx.currentTime + 2);
+  playMelodyNote();
+  startPulse();
+}
+
+function stopMusic(){
+  clearTimeout(melodyTimer);
+  if(masterGain){
+    masterGain.gain.linearRampToValueAtTime(0, musicCtx.currentTime + 1);
+    setTimeout(()=>{
+      nodes.forEach(n=>{try{n.disconnect();n.stop&&n.stop()}catch(e){}});
+      nodes=[];
+      if(musicCtx){musicCtx.close();musicCtx=null;}
+    }, 1100);
+  }
+}
+
+function toggleMusic(){
+  playing = !playing;
+  document.getElementById('iconOn').style.display = playing ? 'block' : 'none';
+  document.getElementById('iconOff').style.display = playing ? 'none' : 'block';
+  if(playing){ startMusic(); }
+  else{ stopMusic(); }
+}
+</script>
 
 </body>
 </html>
