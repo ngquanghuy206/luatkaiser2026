@@ -311,15 +311,35 @@ HÌNH THỨC XỬ LÝ: [theo luật]`;
 
   try{
     // Gọi thẳng Gemini API - streaming từ Google
-    const GEMINI_KEY='AIzaSyCX3YoB6WHhnXTtlp742fUjuC_9PHaUM4Q';
-    const url=`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:streamGenerateContent?alt=sse&key=${GEMINI_KEY}`;
+    // Groq API - streaming
+    const GROQ_KEY='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';
 
-    const response=await fetch(url,{
+    // Build message text from parts
+    const textPart = parts.find(p=>p.text);
+    const imgParts = parts.filter(p=>p.inlineData);
+
+    // Groq supports vision with llama-4
+    const msgContent = [];
+    for(const p of imgParts){
+      msgContent.push({
+        type:'image_url',
+        image_url:{url:`data:${p.inlineData.mimeType};base64,${p.inlineData.data}`}
+      });
+    }
+    if(textPart) msgContent.push({type:'text',text:textPart.text});
+
+    const response=await fetch('https://api.groq.com/openai/v1/chat/completions',{
       method:'POST',
-      headers:{'Content-Type':'application/json'},
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization':`Bearer ${GROQ_KEY}`
+      },
       body:JSON.stringify({
-        contents:[{role:'user',parts}],
-        generationConfig:{maxOutputTokens:1500,temperature:0.3}
+        model: imgParts.length > 0 ? 'meta-llama/llama-4-scout-17b-16e-instruct' : 'llama-3.3-70b-versatile',
+        messages:[{role:'user',content: msgContent.length>1 ? msgContent : (textPart?.text||'')}],
+        max_tokens:1500,
+        temperature:0.3,
+        stream:true
       })
     });
 
@@ -337,7 +357,6 @@ HÌNH THỨC XỬ LÝ: [theo luật]`;
       const {done,value}=await reader.read();
       if(done) break;
       buf+=decoder.decode(value,{stream:true});
-      // Parse SSE lines
       const lines=buf.split('\n');
       buf=lines.pop();
       for(const line of lines){
@@ -346,7 +365,7 @@ HÌNH THỨC XỬ LÝ: [theo luật]`;
         if(!raw||raw==='[DONE]') continue;
         try{
           const json=JSON.parse(raw);
-          const chunk=json.candidates?.[0]?.content?.parts?.[0]?.text||'';
+          const chunk=json.choices?.[0]?.delta?.content||'';
           if(chunk){
             fullText+=chunk;
             contentEl.innerHTML=fullText+'<span class="cursor"></span>';
