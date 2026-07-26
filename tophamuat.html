@@ -272,6 +272,8 @@ async function analyzeViolation(){
 BỘ LUẬT ÁP DỤNG (${LUAT_NAMES[selectedLuat]}):
 ${RULES[selectedLuat]}
 
+QUAN TRỌNG: Chỉ trả lời bằng tiếng Việt. Không dùng tiếng Anh.
+
 Phân tích và trả lời theo định dạng:
 🔎 PHÂN TÍCH:
 [phân tích chi tiết từng điểm nghi vấn dựa trên luật]
@@ -368,12 +370,16 @@ HÌNH THỨC XỬ LÝ: [theo luật]`;
           const chunk=json.choices?.[0]?.delta?.content||'';
           if(chunk){
             fullText+=chunk;
-            contentEl.innerHTML=fullText+'<span class="cursor"></span>';
+            // Loc bo phan <think>
+      let displayText = fullText.replace(/<think>[\s\S]*?<\/think>/g, '').trim();
+      contentEl.innerHTML=displayText+'<span class="cursor"></span>';
           }
         }catch(e){}
       }
     }
 
+    // Loc bo <think> o text cuoi
+    fullText = fullText.replace(/<think>[\s\S]*?<\/think>/g, '').trim();
     contentEl.textContent=fullText;
     if(!fullText) throw new Error('Không nhận được phản hồi từ AI');
 
