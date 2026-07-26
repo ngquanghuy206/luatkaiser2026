@@ -335,7 +335,7 @@ HÌNH THỨC XỬ LÝ: [theo luật]`;
         'Authorization':`Bearer ${GROQ_KEY}`
       },
       body:JSON.stringify({
-        model: imgParts.length > 0 ? 'llama-3.2-11b-vision-preview' : 'llama-3.3-70b-versatile',
+        model: 'qwen/qwen3.6-27b',
         messages:[{role:'user',content: msgContent.length>1 ? msgContent : (textPart?.text||'')}],
         max_tokens:1500,
         temperature:0.3,
