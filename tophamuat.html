@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<style>html,body{overflow-x:hidden;max-width:100vw}</style>
 <title>Tố Phạm Luật – Kaiser FF</title>
 <style>
   :root{--bg:#07090d;--surface:#0d1117;--card:#111820;--border:#1e2d3d;--cyan:#00d4ff;--green:#3dcc6e;--red:#ff4d4d;--text:#e8eaf0;--muted:#6b7a8d;--g-gold:linear-gradient(135deg,#f5c842,#c8902a);--g-cyan:linear-gradient(135deg,#00d4ff,#7ffbff);--g-green:linear-gradient(135deg,#3dcc6e,#a0f0b0)}
@@ -97,13 +98,13 @@
 <div class="orb orb1"></div>
 <div class="orb orb2"></div>
 <nav>
-  <a href="index.html">← Trang Chủ</a>
-  <a href="solo.html" style="color:#f5c842">⭐ Kaiser 1-1</a>
-  <a href="kaiser.html" style="color:#00d4ff">🛡️ Kaiser Team</a>
-  <a href="checktam.html" style="color:#3dcc6e">🎯 Check Tâm</a>
+  <a href="index.html"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:3px"><path d="M19 12H5M5 12l7-7M5 12l7 7" stroke="#6b7a8d" stroke-width="2" stroke-linecap="round"/></svg>Trang Chủ</a>
+  <a href="solo.html" style="color:#f5c842"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:3px"><path d="M12 3l2 6h6l-5 4 2 6-5-4-5 4 2-6-5-4h6z" fill="#f5c842"/></svg>Kaiser 1-1</a>
+  <a href="kaiser.html" style="color:#00d4ff"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:3px"><path d="M12 3l7 4v5c0 4-3 7-7 9-4-2-7-5-7-9V7z" fill="#00d4ff"/></svg>Kaiser Team</a>
+  <a href="checktam.html" style="color:#3dcc6e"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:3px"><circle cx="12" cy="12" r="9" stroke="#3dcc6e" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="#3dcc6e"/></svg>Check Tâm</a>
 </nav>
 <header style="margin-top:44px">
-  <div class="logo-icon">⚖️</div>
+  <div class="logo-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 12h18" stroke="#07090d" stroke-width="2.5" stroke-linecap="round"/><circle cx="12" cy="12" r="4" fill="#07090d"/><path d="M5 8l7 4 7-4" stroke="#07090d" stroke-width="2" stroke-linecap="round"/><path d="M5 16l7-4 7 4" stroke="#07090d" stroke-width="1.5" stroke-linecap="round" opacity=".5"/></svg></div>
   <div>
     <h1><span>Tố Phạm Luật</span> – Kaiser FF</h1>
     <div class="header-sub">AI phân tích · Nguyễn Hoàng Khánh Nam</div>
@@ -138,14 +139,14 @@
     <div class="step-label" style="margin-bottom:12px">Bước 3 · Upload bằng chứng (ảnh)</div>
     <div class="upload-zone" id="uploadZone">
       <input type="file" id="fileInput" accept="image/*" multiple onchange="handleFiles(this.files)">
-      <span class="upload-icon">📎</span>
+      <span class="upload-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke="#6b7a8d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       <div class="upload-text">Nhấn để chọn ảnh bằng chứng</div>
       <div class="upload-hint">JPG/PNG · Tối đa 4 ảnh</div>
     </div>
     <div class="media-preview" id="mediaPreview"></div>
   </div>
   <button class="btn-analyze" id="analyzeBtn" onclick="analyzeViolation()" disabled>
-    🔍 Phân Tích Tố Phạm Luật
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><circle cx="11" cy="11" r="7" stroke="#07090d" stroke-width="2.2"/><path d="M16.5 16.5l4 4" stroke="#07090d" stroke-width="2.2" stroke-linecap="round"/></svg> Phân Tích Tố Phạm Luật
   </button>
   <div class="loading-wrap" id="loadingWrap">
     <div class="spinner"></div>
@@ -162,7 +163,7 @@
     <div class="context-wrap">
       <div class="context-panel luat-panel">
         <div class="context-panel-header" onclick="this.parentElement.classList.toggle('open')">
-          <span class="context-panel-icon">📋</span>
+          <span class="context-panel-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="14" height="18" rx="2" stroke="#f5c842" stroke-width="1.8"/><path d="M9 7h6M9 11h6M9 15h4" stroke="#f5c842" stroke-width="1.5" stroke-linecap="round"/></svg></span>
           <span class="context-panel-title">Bộ luật đã tra cứu</span>
           <span class="context-panel-arrow">▼</span>
         </div>
@@ -170,7 +171,7 @@
       </div>
       <div class="context-panel cauhoi-panel">
         <div class="context-panel-header" onclick="this.parentElement.classList.toggle('open')">
-          <span class="context-panel-icon">💬</span>
+          <span class="context-panel-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="#00d4ff" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
           <span class="context-panel-title">Câu hỏi đã gửi</span>
           <span class="context-panel-arrow">▼</span>
         </div>
@@ -179,7 +180,7 @@
     </div>
     <div class="context-divider"></div>
     <div class="result-content" id="resultContent"></div>
-    <button class="btn-reset" onclick="resetForm()">🔄 Tố phạm luật mới</button>
+    <button class="btn-reset" onclick="resetForm()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:5px"><path d="M1 4v6h6M23 20v-6h-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M20.5 9A9 9 0 0 0 5.6 5.6L1 10M23 14l-4.6 4.4A9 9 0 0 1 3.5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Tố phạm luật mới</button>
   </div>
 </main>
 <script>
@@ -359,9 +360,9 @@ HÌNH THỨC XỬ LÝ: [theo luật]`;
           const chunk=json.choices?.[0]?.delta?.content||'';
           if(chunk){
             fullText+=chunk;
-            // Loc bo phan <think>
+            // Loc bo phan <think> va khong hien neu con dang think
       let displayText = fullText.replace(/<think>[\s\S]*?<\/think>/g, '').trim();
-      contentEl.innerHTML=displayText+'<span class="cursor"></span>';
+      if(displayText) contentEl.innerHTML=displayText+'<span class="cursor"></span>';
           }
         }catch(e){}
       }
@@ -370,10 +371,11 @@ HÌNH THỨC XỬ LÝ: [theo luật]`;
     // Loc bo <think> o text cuoi
     fullText = fullText.replace(/<think>[\s\S]*?<\/think>/g, '').trim();
 
-    // Dich sang tieng Viet neu co tieng Anh
+    // Dich sang tieng Viet neu co tieng Anh - an ket qua cu, chi hien sau khi dich
     const hasEnglish = /[a-zA-Z]{4,}/.test(fullText.replace(/[\u0080-\uFFFF]/g, ''));
     if(hasEnglish){
-      contentEl.textContent = fullText + '\n\n[Đang dịch sang tiếng Việt...]';
+      contentEl.innerHTML = '';
+      document.getElementById('verdictText').textContent='Đang dịch sang tiếng Việt...';
       try{
         const transResp = await fetch('https://api.groq.com/openai/v1/chat/completions',{
           method:'POST',
@@ -389,8 +391,7 @@ HÌNH THỨC XỬ LÝ: [theo luật]`;
         });
         if(transResp.ok){
           const transData = await transResp.json();
-          const translated = transData.choices?.[0]?.message?.content||fullText;
-          fullText = translated;
+          fullText = transData.choices?.[0]?.message?.content||fullText;
         }
       }catch(e){ console.warn('Dich loi:', e); }
     }
